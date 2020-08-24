@@ -56,3 +56,4 @@ export default connect(mapStateToProps)(App);
 // make a class, set state value of chatOrTrade: ''
 // render whats above now if chat.
 // render a different trade component if trade.
+// or set global store state for trade/chat and set render here based to statetoprops value

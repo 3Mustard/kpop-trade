@@ -29,3 +29,6 @@ class SidePanel extends React.Component {
 }
 
 export default SidePanel;
+
+
+// Trade/chat button to set global state of where to go
