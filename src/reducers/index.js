@@ -68,10 +68,30 @@ const colors_reducer = (state=initialColorState, action) => {
     }
 }
 
+const initialChatOrTradeState = {
+    chatOrTrade: 'chat'
+}
+
+const chatOrTrade_reducer = (state=initialChatOrTradeState, action) => {
+    switch (action.type) {
+        case actionTypes.SET_APP_TO_TRADE:
+            return {
+                chatOrTrade: 'trade'
+            }
+        case actionTypes.SET_APP_TO_CHAT:
+            return {
+                chatOrTrade: 'chat'
+            }
+        default: 
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user: user_reducer,
     channel: channel_reducer,
-    colors: colors_reducer
+    colors: colors_reducer,
+    chatOrTrade: chatOrTrade_reducer
 });
 
 export default rootReducer;
