@@ -68,19 +68,19 @@ const colors_reducer = (state=initialColorState, action) => {
     }
 }
 
-const initialChatOrTradeState = {
-    chatOrTrade: 'chat'
+const initialChatOrTradeStatus = {
+    status: 'chat'
 }
 
-const chatOrTrade_reducer = (state=initialChatOrTradeState, action) => {
+const chatOrTrade_reducer = (state=initialChatOrTradeStatus, action) => {
     switch (action.type) {
         case actionTypes.SET_APP_TO_TRADE:
             return {
-                chatOrTrade: 'trade'
+                status: 'trade'
             }
         case actionTypes.SET_APP_TO_CHAT:
             return {
-                chatOrTrade: 'chat'
+                status: 'chat'
             }
         default: 
             return state;
