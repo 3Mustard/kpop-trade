@@ -56,3 +56,17 @@ export const setColors = (primaryColor, secondaryColor) => {
         }
     }
 }
+
+// ** Chat/Trade status ** 
+
+export const setChatOrTrade = (update) => {
+    if (update === 'trade') {
+        return {
+            type: actionTypes.SET_APP_TO_TRADE
+        };
+    } else {
+        return {
+            type: actionTypes.SET_APP_TO_CHAT
+        };
+    }
+}
