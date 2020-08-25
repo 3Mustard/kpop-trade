@@ -1,10 +1,12 @@
 import React from 'react'
 import { Card } from 'semantic-ui-react'
-import { TradeCard } from './TradeCard';
+import { TradeCard } from './TradePanel/TradeCard';
 const src = '/images/wireframe/image.png'
 
-const TradesWindow = () => (
+const TradePanel = () => (
+
   <Card.Group itemsPerRow={6}>
+    {/* create function that populates tradeCard components into this group */}
     <TradeCard />
     <TradeCard />
     <TradeCard />
@@ -18,6 +20,7 @@ const TradesWindow = () => (
     <TradeCard />
     <TradeCard />
   </Card.Group>
+  
 )
 
-export default TradesWindow
+export default TradePanel;
