@@ -5,10 +5,11 @@ import UserPanel from './UserPanel';
 import Starred from './Starred';
 import Channels from './Channels';
 import DirectMessages from './DirectMessages';
+import ChatTradeStatusBtn from '../../MutualComponents/ChatTradeStatusBtn';
 
 class SidePanel extends React.Component {
     render() {
-        const { currentUser, primaryColor } = this.props;
+        const { appStatus, currentUser, primaryColor } = this.props;
 
         return (
             <Menu
@@ -18,17 +19,15 @@ class SidePanel extends React.Component {
                 vertical
                 style={{ background: primaryColor, fontSize: '1.2rem'}}
             >
-
+                
                 <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
                 <Starred currentUser={currentUser}/>
                 <Channels currentUser={currentUser}/>
                 <DirectMessages currentUser={currentUser}/>
+                <ChatTradeStatusBtn currentAppStatus={appStatus}/>
             </Menu>
         )
     }
 }
 
 export default SidePanel;
-
-
-// Trade/chat button to set global state of where to go

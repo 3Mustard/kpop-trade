@@ -7,7 +7,7 @@ import Messages from './Messages/Messages';
 // import MetaPanel from './MetaPanel/MetaPanel';
 
 //prettier-ignore
-const ChatApp = ({ currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => (
+const ChatApp = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => (
   <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
     {/* <ColorPanel
       key={currentUser && currentUser.name}
@@ -17,6 +17,7 @@ const ChatApp = ({ currentUser, currentChannel, isPrivateChannel, userPosts, pri
       key={currentUser && currentUser.id}
       currentUser={currentUser}
       primaryColor={primaryColor}
+      appStatus={appStatus}
     />
 
     <Grid.Column style={{ marginLeft: 320 }}>
