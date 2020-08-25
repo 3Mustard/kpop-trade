@@ -1,25 +1,25 @@
 ## Active Development
 This app is still in development
-Current build hosted at https://lets-trade-a1486.web.app/
 
-## Features 
--login/auth
--signup
--user created channels
--ability to favorite a channel
+## AppFeatures 
+* GLOBAL *
+-login/signup/auth
+* CHAT *
+-Join/favorite chat channels
 -send image/text messages
 -send direct messages between users
 -notifications
 -emoji
--change app colors
 -upload new avatar image
+* TRADE *
+-coming soon post/respond to user trade offers
 
 ## Purpose
 -Learn and create 
--Will be stripped down of many features in seperate repo for another app in need of simple dm's
+-Give kpop fans a place to trade photo cards and other collectables && chat
 
 ## Learn More/Help/contact
 If you'd like to know more or help out please contact me at m23.cullen@gmail.com
 
 ## Known bugs
--Creating a new channel with 0 posts in it then clicking metapanel top posts section for that channel will display an incorrect amount of posts until one message is in the channel.
+-will be filled with bugs once deployed

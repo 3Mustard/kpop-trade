@@ -6,7 +6,6 @@ class ChatTradeStatusBtn extends React.Component {
     currentAppStatus: this.props.currentAppStatus
   }
   render() {
-    console.log('app status', this.state.currentAppStatus)
     return (
       <Button>Trade/Chat</Button>
     )
