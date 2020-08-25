@@ -2,16 +2,16 @@
 This app is still in development
 
 ## AppFeatures 
-* GLOBAL *
+* GLOBAL
 -login/signup/auth
-* CHAT *
+* CHAT
 -Join/favorite chat channels
 -send image/text messages
 -send direct messages between users
 -notifications
 -emoji
 -upload new avatar image
-* TRADE *
+* TRADE
 -coming soon post/respond to user trade offers
 
 ## Purpose
