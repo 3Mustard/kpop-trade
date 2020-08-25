@@ -5,7 +5,7 @@ import UserPanel from './UserPanel';
 import Starred from './Starred';
 import Channels from './Channels';
 import DirectMessages from './DirectMessages';
-import ChatTradeStatusBtn from '../../MutualComponents/ChatTradeStatusBtn';
+import AppStatusBtn from '../../MutualComponents/AppStatusBtn';
 
 class SidePanel extends React.Component {
     render() {
@@ -24,7 +24,7 @@ class SidePanel extends React.Component {
                 <Starred currentUser={currentUser}/>
                 <Channels currentUser={currentUser}/>
                 <DirectMessages currentUser={currentUser}/>
-                <ChatTradeStatusBtn currentAppStatus={appStatus}/>
+                <AppStatusBtn currentAppStatus={appStatus}/>
             </Menu>
         )
     }

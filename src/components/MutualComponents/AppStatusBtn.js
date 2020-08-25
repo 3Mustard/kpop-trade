@@ -4,15 +4,19 @@ import { Button } from 'semantic-ui-react'
 
 import { setAppState } from '../../actions';
 
-class ChatTradeStatusBtn extends React.Component {
+class AppStatusBtn extends React.Component {
   state = {
     currentAppStatus: this.props.currentAppStatus
   }
 
-  //button will send string of new app state
+  setAppStatus = () => {
+    const newStatus = (this.state.currentAppStatus === 'chat') ? 'trade' : 'chat';
+    this.props.setAppState(newStatus)
+  }
+
   render() {
     return (
-      <Button>Trade/Chat</Button>
+      <Button onClick={this.setAppStatus}>Trade/Chat</Button>
     )
   }
 } 
@@ -20,4 +24,4 @@ class ChatTradeStatusBtn extends React.Component {
 export default connect(
   null,
   { setAppState }
-  )(ChatTradeStatusBtn);
+  )(AppStatusBtn);
