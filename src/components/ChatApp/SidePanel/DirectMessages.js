@@ -1,7 +1,7 @@
 import React from "react";
-import firebase from "../../firebase";
+import firebase from "../../../firebase";
 import { connect } from 'react-redux';
-import { setCurrentChannel, setPrivateChannel } from '../../actions';
+import { setCurrentChannel, setPrivateChannel } from '../../../actions';
 import { Menu, Icon } from "semantic-ui-react";
 
 class DirectMessages extends React.Component {

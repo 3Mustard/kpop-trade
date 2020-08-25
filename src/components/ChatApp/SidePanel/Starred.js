@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Menu, Icon } from 'semantic-ui-react';
-import firebase from '../../firebase';
-import { setCurrentChannel, setPrivateChannel } from '../../actions';
+import firebase from '../../../firebase';
+import { setCurrentChannel, setPrivateChannel } from '../../../actions';
 
 class Starred extends React.Component {
   state = {

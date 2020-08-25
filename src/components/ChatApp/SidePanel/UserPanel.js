@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../../firebase';
+import firebase from '../../../firebase';
 import AvatarEditor from 'react-avatar-editor';
 import { Button, Grid, Header, Icon, Dropdown, Image, Input, Modal } from 'semantic-ui-react';
 

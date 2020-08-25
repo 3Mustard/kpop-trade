@@ -2,11 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import "./App.css";
 
-// import ColorPanel from './ColorPanel/ColorPanel';
-import SidePanel from './SidePanel/SidePanel';
-import Messages from './Messages/Messages';
 import ChatApp from './ChatApp/ChatApp';
-// import MetaPanel from './MetaPanel/MetaPanel';
 
 //prettier-ignore
 const App = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => 

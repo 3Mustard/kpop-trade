@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Segment, Comment } from "semantic-ui-react";
-import firebase from '../../firebase';
+import firebase from '../../../firebase';
 
-import { setUserPosts } from '../../actions';
+import { setUserPosts } from '../../../actions';
 
 import MessagesHeader from "./MessagesHeader";
 import MessageForm from "./MessageForm";

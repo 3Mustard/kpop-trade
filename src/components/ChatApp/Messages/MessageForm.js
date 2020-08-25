@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from '../../firebase';
+import firebase from '../../../firebase';
 import uuidv4 from 'uuid/v4';
 import { Segment, Button, Input } from "semantic-ui-react";
 import { Picker, emojiIndex } from 'emoji-mart';
