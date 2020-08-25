@@ -68,19 +68,15 @@ const colors_reducer = (state=initialColorState, action) => {
     }
 }
 
-const initialChatOrTradeStatus = {
+const initialAppStatus = {
     status: 'chat'
 }
 
-const chatOrTrade_reducer = (state=initialChatOrTradeStatus, action) => {
+const appStatus_reducer = (state=initialAppStatus, action) => {
     switch (action.type) {
-        case actionTypes.SET_APP_TO_TRADE:
+        case actionTypes.SET_APP_STATUS:
             return {
-                status: 'trade'
-            }
-        case actionTypes.SET_APP_TO_CHAT:
-            return {
-                status: 'chat'
+                status: action.payload.newStatus
             }
         default: 
             return state;
@@ -91,7 +87,7 @@ const rootReducer = combineReducers({
     user: user_reducer,
     channel: channel_reducer,
     colors: colors_reducer,
-    chatOrTrade: chatOrTrade_reducer
+    appStatus: appStatus_reducer
 });
 
 export default rootReducer;

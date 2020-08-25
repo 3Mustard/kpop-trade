@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
   primaryColor: state.colors.primaryColor,
   secondaryColor: state.colors.secondaryColor,
   userPosts: state.channel.userPosts,
-  appStatus: state.chatOrTrade.status
+  appStatus: state.appStatus.status
 });
 
 export default connect(mapStateToProps)(App);
