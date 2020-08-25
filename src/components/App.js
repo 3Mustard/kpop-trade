@@ -1,46 +1,18 @@
 import React from "react";
-import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import "./App.css";
 
 // import ColorPanel from './ColorPanel/ColorPanel';
 import SidePanel from './SidePanel/SidePanel';
 import Messages from './Messages/Messages';
+import ChatApp from './ChatApp/ChatApp';
 // import MetaPanel from './MetaPanel/MetaPanel';
 
 //prettier-ignore
-const App = ({ chatOrTrade, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => (
-  <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
-    {/* <ColorPanel
-      key={currentUser && currentUser.name}
-      currentUser={currentUser}
-    /> */}
-    <SidePanel 
-      key={currentUser && currentUser.id}
-      currentUser={currentUser}
-      primaryColor={primaryColor}
-    />
-
-    <Grid.Column style={{ marginLeft: 320 }}>
-      {chatOrTrade}
-      <Messages
-        key={currentChannel && currentChannel.id}
-        currentChannel={currentChannel}
-        currentUser={currentUser}
-        isPrivateChannel={isPrivateChannel}
-      />
-    </Grid.Column>
-
-    {/* <Grid.Column width={4}>
-      <MetaPanel 
-        key={currentChannel && currentChannel.name}
-        currentChannel={currentChannel}
-        isPrivateChannel={isPrivateChannel}
-        userPosts={userPosts}
-      />
-    </Grid.Column> */}
-  </Grid>
-)
+const App = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => 
+  appStatus === 'chat' 
+    ? <ChatApp currentUser={currentUser} currentChannel={currentChannel} isPrivateChannel={isPrivateChannel} userPosts={userPosts} primaryColor={primaryColor} secondaryColor={secondaryColor} /> 
+    : null;
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
@@ -49,7 +21,7 @@ const mapStateToProps = state => ({
   primaryColor: state.colors.primaryColor,
   secondaryColor: state.colors.secondaryColor,
   userPosts: state.channel.userPosts,
-  chatOrTrade: state.chatOrTrade.status
+  appStatus: state.chatOrTrade.status
 });
 
 export default connect(mapStateToProps)(App);
