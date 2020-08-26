@@ -21,10 +21,11 @@ class SidePanel extends React.Component {
             >
                 
                 <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
-                <Starred currentUser={currentUser}/>
-                <Channels currentUser={currentUser}/>
+                {/* <Starred currentUser={currentUser}/> */}
+                {/* <Channels currentUser={currentUser}/> */}
                 <DirectMessages currentUser={currentUser}/>
                 <AppStatusBtn currentAppStatus={appStatus}/>
+                Manage my trade posts button
             </Menu>
         )
     }
