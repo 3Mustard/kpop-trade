@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import "./App.css";
 
 import ChatApp from './ChatApp/ChatApp';
+import AppStatusBtn from './MutualComponents/AppStatusBtn';
 
 //prettier-ignore
 const App = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => 
@@ -16,7 +17,7 @@ const App = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPos
         primaryColor={primaryColor} 
         secondaryColor={secondaryColor} 
       /> 
-    : null;
+    : <AppStatusBtn currentAppStatus={appStatus}/>;
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
