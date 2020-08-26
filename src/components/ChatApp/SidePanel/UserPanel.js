@@ -119,8 +119,8 @@ class UserPanel extends React.Component {
                     <Grid.Row style={{ padding: '1.2em', margin: 0 }}>
                         {/* APP header */}
                         <Header inverted floated="left" as="h2">
-                            <Icon name="code" />
-                            <Header.Content>Let's Trade</Header.Content>
+                            <Icon style={{ color: 'pink' }} name="heartbeat" />
+                            <Header.Content>Kpop Trade</Header.Content>
                         </Header>
                         {/* Dropdown */}
                         <Header style={{ padding: '0.25em' }} as="h4" inverted>
