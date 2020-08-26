@@ -1,23 +1,38 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { Grid, Button } from 'semantic-ui-react';
 import "./App.css";
 
-import ChatApp from './ChatApp/ChatApp';
-import AppStatusBtn from './MutualComponents/AppStatusBtn';
+import SidePanel from './ChatApp/SidePanel/SidePanel';
+import Messages from './ChatApp/Messages/Messages';
 
 //prettier-ignore
-const App = ({ appStatus, currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor }) => 
-  (appStatus === 'chat') 
-    ? <ChatApp 
-        appStatus={appStatus} 
-        currentUser={currentUser} 
-        currentChannel={currentChannel} 
-        isPrivateChannel={isPrivateChannel} 
-        userPosts={userPosts} 
-        primaryColor={primaryColor} 
-        secondaryColor={secondaryColor} 
-      /> 
-    : <AppStatusBtn currentAppStatus={appStatus}/>;
+class App extends React.Component {
+
+  render() {
+    const { currentUser, currentChannel, isPrivateChannel, userPosts, primaryColor, secondaryColor } = this.props;
+  
+    return (
+      <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
+    
+      <SidePanel 
+        key={currentUser && currentUser.id}
+        currentUser={currentUser}
+        primaryColor={primaryColor}
+      />
+
+      <Grid.Column style={{ marginLeft: 320 }}>
+        <Messages
+          key={currentChannel && currentChannel.id}
+          currentChannel={currentChannel}
+          currentUser={currentUser}
+          isPrivateChannel={isPrivateChannel}
+        />
+      </Grid.Column>
+  </Grid> 
+    )
+  }
+}
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
@@ -25,8 +40,7 @@ const mapStateToProps = state => ({
   isPrivateChannel: state.channel.isPrivateChannel,
   primaryColor: state.colors.primaryColor,
   secondaryColor: state.colors.secondaryColor,
-  userPosts: state.channel.userPosts,
-  appStatus: state.appStatus.status
+  userPosts: state.channel.userPosts
 });
 
 export default connect(mapStateToProps)(App);

@@ -2,10 +2,7 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 
 import UserPanel from './UserPanel';
-import Starred from './Starred';
-import Channels from './Channels';
 import DirectMessages from './DirectMessages';
-import AppStatusBtn from '../../MutualComponents/AppStatusBtn';
 
 class SidePanel extends React.Component {
     render() {
@@ -24,8 +21,8 @@ class SidePanel extends React.Component {
                 {/* <Starred currentUser={currentUser}/> */}
                 {/* <Channels currentUser={currentUser}/> */}
                 <DirectMessages currentUser={currentUser}/>
-                <AppStatusBtn currentAppStatus={appStatus}/>
-                Manage my trade posts button
+                Add trade button <br></br>
+                view trades button 
             </Menu>
         )
     }
