@@ -59,11 +59,11 @@ export const setColors = (primaryColor, secondaryColor) => {
 
 // ** Chat/Trade status ** 
 
-export const setAppState = (newStatus) => {
+export const setAppComponent = (component) => {
     return {
-        type: actionTypes.SET_APP_STATUS,
+        type: actionTypes.SET_APP_COMPONENT,
         payload: {
-            newStatus
+            component
         }
     };
 }

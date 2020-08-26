@@ -3,30 +3,21 @@ import { connect } from 'react-redux';
 import { Grid, Button, Menu } from 'semantic-ui-react';
 import "./App.css";
 
+import { setAppComponent } from '../actions';
+
 import UserPanel from './ChatApp/SidePanel/UserPanel';
-import DirectMessages from './ChatApp/SidePanel/DirectMessages';
-// import Messages from './ChatApp/Messages/Messages'
+import Messages from './ChatApp/Messages/Messages'
+import TradePanel from './TradeApp/TradePanel/TradePanel';
 
 //prettier-ignore
 class App extends React.Component {
   state = {
-    activeComponent: ''
-  }
-
-  getActiveComponent = (activeComponent) => {
-    switch(activeComponent) {
-      case 'chat':
-        return 'chat';
-      default:
-        return 'home';
-    }
+    component: this.props.appComponent
   }
 
   render() {
-    const { currentUser, primaryColor, secondaryColor } = this.props;
-    const { activeComponent } = this.state.activeComponent;
-    
-    let activeAppComponent = this.getActiveComponent(activeComponent);
+    const { currentUser, currentChannel, isPrivateChannel, primaryColor, secondaryColor } = this.props;
+    const { component } = this.state;
 
     return (
       <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
@@ -48,12 +39,13 @@ class App extends React.Component {
         </Menu>
 
       <Grid.Column style={{ marginLeft: 320 }}>
-        {/* <Messages
-          key={currentChannel && currentChannel.id}
-          currentChannel={currentChannel}
-          currentUser={currentUser}
-          isPrivateChannel={isPrivateChannel}
-        /> */}
+          { component === 'chat' ? <Messages
+            key={currentChannel && currentChannel.id}
+            currentChannel={currentChannel}
+            currentUser={currentUser}
+            isPrivateChannel={isPrivateChannel}
+          /> : null }
+          { component === 'trade' ? <TradePanel /> : null }
       </Grid.Column>
   </Grid> 
     )
@@ -61,6 +53,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  appComponent: state.appComponent.component,
   currentUser: state.user.currentUser,
   currentChannel: state.channel.currentChannel,
   isPrivateChannel: state.channel.isPrivateChannel,
@@ -69,4 +62,7 @@ const mapStateToProps = state => ({
   userPosts: state.channel.userPosts
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  { setAppComponent }
+)(App);

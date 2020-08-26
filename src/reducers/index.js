@@ -68,15 +68,15 @@ const colors_reducer = (state=initialColorState, action) => {
     }
 }
 
-const initialAppStatus = {
-    status: 'chat'
+const initialAppComponent = {
+    component: 'chat'
 }
 
-const appStatus_reducer = (state=initialAppStatus, action) => {
+const appComponent_reducer = (state=initialAppComponent, action) => {
     switch (action.type) {
-        case actionTypes.SET_APP_STATUS:
+        case actionTypes.SET_APP_COMPONENT:
             return {
-                status: action.payload.newStatus
+                component: action.payload.component
             }
         default: 
             return state;
@@ -87,7 +87,7 @@ const rootReducer = combineReducers({
     user: user_reducer,
     channel: channel_reducer,
     colors: colors_reducer,
-    appStatus: appStatus_reducer
+    appComponent: appComponent_reducer
 });
 
 export default rootReducer;

@@ -11,4 +11,4 @@ export const SET_USER_POSTS = 'SET_USER_POSTS';
 export const SET_COLORS = 'SET_COLORS';
 
 // Chat or Trade status of app
-export const SET_APP_STATUS = 'SET_APP_STATUS';
+export const SET_APP_COMPONENT = 'SET_APP_COMPONENT';
