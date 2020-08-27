@@ -69,7 +69,7 @@ const colors_reducer = (state=initialColorState, action) => {
 }
 
 const initialAppComponent = {
-    component: 'chat'
+    component: 'options'
 }
 
 const appComponent_reducer = (state=initialAppComponent, action) => {
