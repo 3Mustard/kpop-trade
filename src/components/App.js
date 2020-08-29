@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Grid, Button, Menu } from 'semantic-ui-react';
+import { Grid, Menu } from 'semantic-ui-react';
 import "./App.css";
 
 import { setAppComponent } from '../actions';
@@ -8,7 +8,6 @@ import { setAppComponent } from '../actions';
 import UserPanel from './ChatApp/SidePanel/UserPanel';
 import Messages from './ChatApp/Messages/Messages'
 import TradePanel from './TradeApp/TradePanel/TradePanel';
-import Options from './Mutual/Options';
 
 //prettier-ignore
 class App extends React.Component {
@@ -47,7 +46,6 @@ class App extends React.Component {
             isPrivateChannel={isPrivateChannel}
           /> : null }
           { component === 'trade' ? <TradePanel /> : null }
-          { component === 'options' ? <Options /> : null }
       </Grid.Column>
   </Grid> 
     )

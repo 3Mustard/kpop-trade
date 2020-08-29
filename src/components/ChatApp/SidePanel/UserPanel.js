@@ -12,6 +12,7 @@ class UserPanel extends React.Component {
         uploadededCroppedImage: '',
         user: this.props.currentUser,
         modal: false,
+        modal2: false,
         storageRef: firebase.storage().ref(),
         // alt way of getting a user
         userRef: firebase.auth().currentUser,
@@ -23,8 +24,10 @@ class UserPanel extends React.Component {
 
     openModal = () => this.setState({ modal:true });
     closeModal = () => this.setState({ modal: false });
+    openModal2 = () => this.setState({ modal2:true });
+    closeModal2 = () => this.setState({ modal2: false });
 
-    dropDownOptions = () => [
+    userDropDownOptions = () => [
         {
             key: "user",
             text: <span>Signed in as <strong>{this.state.user.displayName}</strong></span>,
@@ -37,6 +40,17 @@ class UserPanel extends React.Component {
         {
             key: "signout",
             text: <span onClick={this.handleSignout}>Sign Out</span>
+        }
+    ];
+
+    navigationDropDownOptions = () => [
+        {
+            key: "chat",
+            text: <span>Go to chat</span>
+        },
+        {
+            key: "trade",
+            text: <span>Browse/Post trades</span>
         }
     ];
 
@@ -129,9 +143,15 @@ class UserPanel extends React.Component {
                                     <Image src={user.photoURL} spaced="right" avatar />
                                     {user.displayName}
                                 </span>} 
-                                options={this.dropDownOptions()} 
+                                options={this.userDropDownOptions()} 
                             />
-                    </Header>
+                            <Dropdown trigger={
+                                <span>
+                                    <Icon style={{ color: 'pink' }} name="heartbeat" />
+                                </span>} 
+                                options={this.navigationDropDownOptions()} 
+                            />
+                        </Header>
                     </Grid.Row>
 
                     {/* Change user avatar modal */}
