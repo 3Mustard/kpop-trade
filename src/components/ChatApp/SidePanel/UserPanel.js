@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from '../../../firebase';
 import AvatarEditor from 'react-avatar-editor';
+import { connect } from 'react-redux';
+import { setAppComponent } from '../../../actions';
 import { Button, Grid, Header, Icon, Dropdown, Image, Input, Modal } from 'semantic-ui-react';
 
 class UserPanel extends React.Component {
@@ -46,13 +48,21 @@ class UserPanel extends React.Component {
     navigationDropDownOptions = () => [
         {
             key: "chat",
-            text: <span>Go to chat</span>
+            text: <span value='chat'onClick={this.handleChatNavigation}>Go to chat</span>
         },
         {
             key: "trade",
-            text: <span>Browse/Post trades</span>
+            text: <span value='trade' onClick={this.handleTradeNavigation}>Browse/Post trades</span>
         }
     ];
+
+    handleChatNavigation = () => {
+        this.props.setAppComponent('chat');
+    }
+
+    handleTradeNavigation = () => {
+        this.props.setAppComponent('trade');
+    }
 
     uploadCroppedImage = () => {
         const { storageRef, userRef, blob, metadata } = this.state;
@@ -210,4 +220,7 @@ class UserPanel extends React.Component {
     }
 }
 
-export default UserPanel;
+export default connect(
+    null,
+    { setAppComponent }
+)(UserPanel);
