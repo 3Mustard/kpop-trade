@@ -19,9 +19,15 @@ class TradeForm extends React.Component {
     group: '',
     comment: '',
     image: null,
+    modal: false,
     errors: [],
+    uploadState: '',
+    percentUploaded: 0,
     loading: false
   };
+
+  openModal = () => this.setState({ modal: true });
+  closeModal = () => this.setState({ modal: false });
 
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
@@ -63,7 +69,7 @@ class TradeForm extends React.Component {
   }
 
   render() {
-    const { idol, group, comment, errors, loading } = this.state;
+    const { idol, group, comment, errors, loading, uploadState, percentUploaded } = this.state;
 
     return (
       <Grid className='app' textAlign='center' verticalAlign='middle'>
@@ -116,6 +122,16 @@ class TradeForm extends React.Component {
                 content="Add Image"
                 labelPosition="left"
                 icon="cloud upload"
+              />
+
+              <FileModal 
+                modal={modal}
+                closeModal={this.closeModal}
+                uploadFile={this.uploadFile}
+              />
+              <ProgressBar 
+                uploadState={uploadState} 
+                percentUploaded={percentUploaded}
               />
               
               <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
