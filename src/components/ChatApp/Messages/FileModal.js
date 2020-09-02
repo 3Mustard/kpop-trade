@@ -8,6 +8,7 @@ class FileModal extends React.Component {
     authorized: ['image/jpeg', 'image/png']
   };
 
+  // adds the selected file to state
   addFile = event => {
     const file = event.target.files[0];
     if (file) {
@@ -15,6 +16,7 @@ class FileModal extends React.Component {
     }
   };
 
+  // Used the UploadFile function from parent class to send file to firestore.
   sendFile = () => {
     const { file } = this.state;
     const { uploadFile, closeModal } = this.props; 
@@ -29,19 +31,21 @@ class FileModal extends React.Component {
     }
   }
 
+  // checks if the file type is in the authorized array in state.
   isAuthorized = filename => this.state.authorized.includes(mime.lookup(filename));
 
+  // sets file state back to null
   clearFile = () => this.setState({ file: null });
 
   render() {
-    const { modal, closeModal } = this.props;
+    const { modal, closeModal } = this.props; // modal is a boolean to show/hide this component
 
     return (
       <Modal basic open={modal} onClose={closeModal}>
         <Modal.Header>Select an Image File</Modal.Header>
         <Modal.Content>
           <Input
-            onChange={this.addFile}
+            onChange={this.addFile} // Add file function adds file to state
             fluid
             label="File types: jpg, png"
             name="file"
@@ -52,14 +56,14 @@ class FileModal extends React.Component {
           <Button
             inverted
             color="green"
-            onClick={this.sendFile}
+            onClick={this.sendFile} // Send file function will send file to firestore
           >
             <Icon name="checkmark" /> Send
           </Button>
           <Button
             inverted
             color="red"
-            onClick={closeModal}
+            onClick={closeModal} // function from parent will set modal to false and hide this component
           >
             <Icon name="remove" /> Cancel
           </Button>

@@ -124,7 +124,7 @@ class TradeForm extends React.Component {
                 icon="cloud upload"
               />
 
-              <FileModal 
+              {/* <FileModal 
                 modal={modal}
                 closeModal={this.closeModal}
                 uploadFile={this.uploadFile}
@@ -132,7 +132,7 @@ class TradeForm extends React.Component {
               <ProgressBar 
                 uploadState={uploadState} 
                 percentUploaded={percentUploaded}
-              />
+              /> */}
               
               <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
             </Segment>
