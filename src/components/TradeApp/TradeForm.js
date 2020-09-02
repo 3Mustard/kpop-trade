@@ -8,7 +8,8 @@ import {
   Header, 
   Message, 
   Icon,
-  TextArea 
+  TextArea, 
+  Divider
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ class TradeForm extends React.Component {
     idol: '',
     group: '',
     comment: '',
+    image: null,
     errors: [],
     loading: false
   };
@@ -50,7 +52,7 @@ class TradeForm extends React.Component {
     }
   };
 
-  isFormValid = ({ email, password }) => email && password
+  isFormValid = ({ idol, group, comment }) => idol || group && comment
 
   handleInputError = (errors, inputName) => {
     return errors.some(error => 
@@ -67,15 +69,15 @@ class TradeForm extends React.Component {
       <Grid className='app' textAlign='center' verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as='h1' icon color='violet' textAlign='center'>
-            <Icon name='code branch' color='violet'/>
-            login for app
+            <Icon name='add' color='violet'/>
+            Add New Listing
           </Header>
           <Form onSubmit={this.handleSubmit} size='large'>
             <Segment stacked>
               <Form.Input
                 fluid
                 name='idol'
-                icon='mail'
+                icon='heart outline'
                 iconPosition='left'
                 placeholder='Idol'
                 onChange={this.handleChange}
@@ -87,7 +89,7 @@ class TradeForm extends React.Component {
               <Form.Input
                 fluid
                 name='group'
-                icon='lock'
+                icon='heart'
                 iconPosition='left'
                 placeholder='Group'
                 onChange={this.handleChange}
@@ -95,28 +97,28 @@ class TradeForm extends React.Component {
                 className={this.handleInputError(errors,'text')}
                 type='text'
               />
+
               <TextArea 
                 placeholder='Add a Note'
                 name='comment'
-                placeholder='Comment'
                 onChange={this.handleChange}
                 value={comment}
                 className={this.handleInputError(errors,'comment')}
                 type='text' 
               />
 
-{/* <Form.Input
-                fluid
-                name='comment'
-                icon='mail'
-                iconPosition='left'
-                placeholder='Comment'
-                onChange={this.handleChange}
-                value={email}
-                className={this.handleInputError(errors,'email')}
-                type='text'
-              /> */}
-              <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Submit</Button>
+              <Divider />
+
+              <Button
+                color="teal"
+                // disabled={}
+                // onClick={}
+                content="Add Image"
+                labelPosition="left"
+                icon="cloud upload"
+              />
+              
+              <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
             </Segment>
           </Form>
           {errors.length > 0 && (
@@ -125,9 +127,9 @@ class TradeForm extends React.Component {
               {this.displayErrors(errors)}
             </Message>
           )}
-          <Message>
-            Don't have an account? <Link to='/register'>Register</Link>
-          </Message>
+          {/* <Message>
+            Looking for a specific card? try searching here. <Link to='/register'>Register</Link>
+          </Message> */}
         </Grid.Column>
       </Grid>
     );
