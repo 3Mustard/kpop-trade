@@ -51,8 +51,9 @@ class TradeForm extends React.Component {
         const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
         this.uploadFile(file, metadata); // sends file to firestore and add imageURL to state
       }
-    const post = this.createTrade(); // should return an object that resembles how collection will look
-    // function to send it to database
+    }
+    const newTrade = this.createTrade(); // returns an object that resembles how objects in trades collection look
+    this.addTrade(newTrade); // upload trade object to trade collection
     this.clearFile(); // clear file and set uploadstate back and maybe set app component to trade
   };
 
@@ -75,7 +76,7 @@ class TradeForm extends React.Component {
 
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
-  // returns an object that represents structure of trades collection objects
+  // returns an object that represents structure of a trades collection object
   createTrade = () => {
     const trade = {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
@@ -91,6 +92,7 @@ class TradeForm extends React.Component {
         avatar: this.state.user.photoURL
       }
     };
+    // if there is an imageDownloadURL attach it to the trade object
     if (this.state.imageDownloadURL !== null){
       trade.details.image = this.state.imageDownloadURL;
     }
@@ -150,6 +152,41 @@ class TradeForm extends React.Component {
     )
   };
 
+  // Sends trade object to firestore collection
+  addTrade = (newTrade) => {
+    const { user, tradesRef } = this.state;
+
+    if (newTrade) {
+      this.setState({ loading: true });
+      getMessagesRef()
+        .child(channel.id)
+        .push()
+        .set(this.createMessage())
+        .then(() => {
+          this.setState({ 
+            loading: false, 
+            message: '', 
+            errors: [] 
+          });
+          typingRef
+            .child(channel.id)
+            .child(user.uid)
+            .remove();
+        })
+        .catch(err => {
+          console.error(err);
+          this.setState({
+            loading: false,
+            errors: this.state.errors.concat(err)
+          })
+        })
+    } else {
+      this.setState({
+        errors: this.state.errors.concat({ message: 'Add a message' })
+      })
+    }
+  }
+  
   render() {
     const { idol, group, comment, errors, uploadState, percentUploaded } = this.state;
 
