@@ -22,6 +22,7 @@ class TradeForm extends React.Component {
     group: '',
     comment: '',
     file: null,
+    imageDownloadURL: '',
     authorized: ['image/jpeg', 'image/png'],
     uploadState: '',
     uploadTask: null,
@@ -31,21 +32,27 @@ class TradeForm extends React.Component {
     errors: []
   };
 
+  componentWillUnmount() {
+    if (this.state.uploadTask !== null) {
+      this.state.uploadTask.cancel();
+      this.setState({ uploadTask: null });
+    }
+  }
+
+  // change value in state based on value of form field
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSubmit = event => {
-    // If there is an Image, upload the image first.
+    // If there is an Image, it gets uploaded to storage and the download url is set in state for use in a trade object.
     if (this.state.file !== null) {
       if (this.isAuthorized(file.name)) { // check if the file is the correct file type
         const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
-        this.uploadFile(file, metadata); // uploadFile is a function below that sends file to firestore and then makes a call to postTrade that sends the trade to the database.
+        this.uploadFile(file, metadata); // sends file to firestore and add imageURL to state
         this.clearFile();
       }
-    } else {
-      // send post without an image 
-    }
+    
   };
 
   // check if form is filled out
@@ -67,9 +74,10 @@ class TradeForm extends React.Component {
 
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
-  createPost = () => {
-    //takes state and returns object for sending to firestore
-  }
+  // createPost = () => {
+  //   //takes state and returns object for sending to firestore
+  // }
+
   // adds the selected file to state
   addFile = event => {
     const file = event.target.files[0];
@@ -78,6 +86,7 @@ class TradeForm extends React.Component {
     }
   };
 
+  // uploads file to storage and set the image download url in state
   uploadFile = (file, metadata) => {
     const filePath = `trades/images/${uuidv4()}.jpg`;
   
@@ -85,37 +94,40 @@ class TradeForm extends React.Component {
       uploadState: 'uploading', //disables send button and enables progressBar component
       uploadTask: this.state.storageRef.child(filePath).put(file, metadata)
     },
-    //   () => {
-    //     this.state.uploadTask.on(
-    //       'state_changed', 
-    //       snap => {
-    //         const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-    //         this.setState({ percentUploaded }); 
-    //     },
-    //       err => {
-    //         console.error(err);
-    //         this.setState({
-    //           errors: this.state.errors.concat(err),
-    //           uploadState: 'error',
-    //           uploadTask: null
-    //         })
-    //       },
-    //       () => {
-    //         this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-    //           this.sendFileMessage(downloadUrl, ref, pathToUpload);
-    //         })
-    //         .catch(err => {
-    //           console.error(err);
-    //           this.setState({
-    //             errors: this.state.errors.concat(err),
-    //             uploadState: 'error',
-    //             uploadTask: null
-    //           })
-    //         })
-    //       }
-    //     )
-    //   }
-    // )
+      () => {
+        this.state.uploadTask.on(
+          'state_changed', 
+          snap => {
+            const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            this.setState({ percentUploaded }); 
+        },
+          err => {
+            console.error(err);
+            this.setState({
+              errors: this.state.errors.concat(err),
+              uploadState: 'error',
+              uploadTask: null
+            });
+          },
+          () => {
+            this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
+              console.log('the image url is ', downloadUrl);
+              this.setState({
+                imageDownloadURL: downloadUrl
+              });
+            })
+            .catch(err => {
+              console.error(err);
+              this.setState({
+                errors: this.state.errors.concat(err),
+                uploadState: 'error',
+                uploadTask: null
+              })
+            })
+          }
+        )
+      }
+    )
   };
 
   render() {
