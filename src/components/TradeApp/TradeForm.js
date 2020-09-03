@@ -13,7 +13,6 @@ import {
   TextArea, 
   Divider
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import ProgressBar from '../ChatApp/Messages/ProgressBar';
 
 class TradeForm extends React.Component {
@@ -22,7 +21,7 @@ class TradeForm extends React.Component {
     group: '',
     comment: '',
     file: null,
-    imageDownloadURL: '',
+    imageDownloadURL: null,
     authorized: ['image/jpeg', 'image/png'],
     uploadState: '',
     uploadTask: null,
@@ -45,14 +44,15 @@ class TradeForm extends React.Component {
   };
 
   handleSubmit = event => {
-    // If there is an Image, it gets uploaded to storage and the download url is set in state for use in a trade object.
+    // If there is an Image 
     if (this.state.file !== null) {
       if (this.isAuthorized(file.name)) { // check if the file is the correct file type
         const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
         this.uploadFile(file, metadata); // sends file to firestore and add imageURL to state
-        this.clearFile();
       }
-    
+    const post = this.createPost(); // should return an object that resembles how collection will look
+    // function to send it to database
+    this.clearFile(); // clear file and set uploadstate back and maybe set app component to trade
   };
 
   // check if form is filled out
@@ -74,9 +74,9 @@ class TradeForm extends React.Component {
 
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
-  // createPost = () => {
-  //   //takes state and returns object for sending to firestore
-  // }
+  createPost = () => {
+    // should return an object that resembles how collection will look
+  }
 
   // adds the selected file to state
   addFile = event => {
@@ -88,11 +88,12 @@ class TradeForm extends React.Component {
 
   // uploads file to storage and set the image download url in state
   uploadFile = (file, metadata) => {
-    const filePath = `trades/images/${uuidv4()}.jpg`;
-  
+    const filePath = `trades/images/${uuidv4()}.jpg`; // uuidv4 is a random number generator 
+    
+    // When set state is called and uploadTask is assigned, the file transfer starts and triggers 'state_changed' listener.
     this.setState({
       uploadState: 'uploading', //disables send button and enables progressBar component
-      uploadTask: this.state.storageRef.child(filePath).put(file, metadata)
+      uploadTask: this.state.storageRef.child(filePath).put(file, metadata) // .put() uploads file to storage causing the code below to run.
     },
       () => {
         this.state.uploadTask.on(
