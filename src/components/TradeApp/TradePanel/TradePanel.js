@@ -3,9 +3,9 @@ import React from 'react'
 // const src = '/images/wireframe/image.png'
 import TradeForm from '../TradeForm';
 
-const TradePanel = () => (
+const TradePanel = (props) => (
   <div>
-    <TradeForm />
+    <TradeForm currentUser={props.currentUser}/>
   </div>
   // <Card.Group itemsPerRow={6}>
   //   {/* create function that populates tradeCard components into this group */}

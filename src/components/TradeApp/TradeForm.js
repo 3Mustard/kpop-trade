@@ -11,7 +11,8 @@ import {
   Message, 
   Icon,
   TextArea, 
-  Divider
+  Divider,
+  Input
 } from 'semantic-ui-react';
 import ProgressBar from '../ChatApp/Messages/ProgressBar';
 
@@ -46,16 +47,18 @@ class TradeForm extends React.Component {
   };
 
   handleSubmit = event => {
-    // If there is an Image 
+    // If there is an Image it gets uploaded and the upload function calls createTrade(withUrl) and addTrade(newTrade)
     if (this.state.file !== null) {
-      if (this.isAuthorized(file.name)) { // check if the file is the correct file type
-        const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
-        this.uploadFile(file, metadata); // sends file to firestore and add imageURL to state
+      if (this.isAuthorized(this.state.file.name)) { // check if the file is the correct file type
+        const metadata = { contentType: mime.lookup(this.state.file.name) }; // attach meta data
+        this.uploadFile(this.state.file, metadata); // sends file to firestore and adds trade to trades collection
       }
+    //without an image a new trade is created and added to collection
+    } else { 
+      const newTrade = this.createTrade(); // returns an object that resembles how objects in trades collection look
+      this.addTrade(newTrade);
     }
-    const newTrade = this.createTrade(); // returns an object that resembles how objects in trades collection look
-    this.addTrade(newTrade); // upload trade object to trade collection
-    this.clearFile(); // clear file and set uploadstate back and maybe set app component to trade
+    // may need clean up function
   };
 
   // check if form is filled out
@@ -78,14 +81,13 @@ class TradeForm extends React.Component {
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
   // returns an object that represents structure of a trades collection object
-  createTrade = () => {
+  createTrade = (fileUrl=null) => {
     const trade = {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
       details: {
         idol: this.state.idol,
         group: this.state.group,
-        comment: this.state.comment,
-        image: ''
+        comment: this.state.comment
       },
       user: {
         id: this.state.user.uid,
@@ -94,8 +96,8 @@ class TradeForm extends React.Component {
       }
     };
     // if there is an imageDownloadURL attach it to the trade object
-    if (this.state.imageDownloadURL !== null){
-      trade.details.image = this.state.imageDownloadURL;
+    if (fileUrl !== null){
+      trade['image'] = fileUrl;
     }
     return trade;
   }
@@ -108,7 +110,7 @@ class TradeForm extends React.Component {
     }
   };
 
-  // uploads file to storage and set the image download url in state
+  // uploads file to storage and adds trade to trades collection
   uploadFile = (file, metadata) => {
     const filePath = `trades/images/${uuidv4()}.jpg`; // uuidv4 is a random number generator 
     
@@ -134,9 +136,8 @@ class TradeForm extends React.Component {
           },
           () => {
             this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-              this.setState({
-                imageDownloadURL: downloadUrl
-              });
+              const newTrade = this.createTrade(downloadUrl); // returns an object that resembles how objects in trades collection look
+              this.addTrade(newTrade); // upload trade object to trade collection
             })
             .catch(err => {
               console.error(err);
@@ -157,7 +158,7 @@ class TradeForm extends React.Component {
     const { user, tradesRef } = this.state;
     this.setState({ loading: true });
     if (newTrade) {
-      tradesRef()
+      tradesRef
         .child(user.uid)
         .push()
         .set(newTrade) // New trade gets added under trades/:useruid
@@ -187,7 +188,7 @@ class TradeForm extends React.Component {
   }
   
   render() {
-    const { idol, group, comment, errors, uploadState, percentUploaded } = this.state;
+    const { idol, group, comment, errors, uploadState, percentUploaded, loading } = this.state;
 
     return (
       <Grid className='app' textAlign='center' verticalAlign='middle'>
