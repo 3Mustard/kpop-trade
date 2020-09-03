@@ -33,13 +33,23 @@ class App extends React.Component {
         </Menu>
 
       <Grid.Column style={{ marginLeft: 320 }}>
-          { appComponent === 'chat' ? <Messages
-            key={currentChannel && currentChannel.id}
-            currentChannel={currentChannel}
-            currentUser={currentUser}
-            isPrivateChannel={isPrivateChannel}
-          /> : null }
-          { appComponent === 'trade' ? <TradePanel /> : null }
+          {/* MESSAGES */}
+          { appComponent === 'chat' 
+            ? <Messages
+                key={currentChannel && currentChannel.id}
+                currentChannel={currentChannel}
+                currentUser={currentUser}
+                isPrivateChannel={isPrivateChannel}
+              /> 
+            : null 
+          }
+          {/* TRADES */}
+          { appComponent === 'trade' 
+            ? <TradePanel 
+                currentUser={currentUser}
+              /> 
+            : null 
+          }
       </Grid.Column>
   </Grid> 
     )

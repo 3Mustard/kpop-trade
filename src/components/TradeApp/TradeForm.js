@@ -17,6 +17,7 @@ import ProgressBar from '../ChatApp/Messages/ProgressBar';
 
 class TradeForm extends React.Component {
   state = {
+    user: this.props.currentUser,
     idol: '',
     group: '',
     comment: '',
@@ -50,7 +51,7 @@ class TradeForm extends React.Component {
         const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
         this.uploadFile(file, metadata); // sends file to firestore and add imageURL to state
       }
-    const post = this.createPost(); // should return an object that resembles how collection will look
+    const post = this.createTrade(); // should return an object that resembles how collection will look
     // function to send it to database
     this.clearFile(); // clear file and set uploadstate back and maybe set app component to trade
   };
@@ -74,8 +75,26 @@ class TradeForm extends React.Component {
 
   displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
-  createPost = () => {
-    // should return an object that resembles how collection will look
+  // returns an object that represents structure of trades collection objects
+  createTrade = () => {
+    const trade = {
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      details: {
+        idol: this.state.idol,
+        group: this.state.group,
+        comment: this.state.comment,
+        image: ''
+      },
+      user: {
+        id: this.state.user.uid,
+        name: this.state.user.displayName,
+        avatar: this.state.user.photoURL
+      }
+    };
+    if (this.state.imageDownloadURL !== null){
+      trade.details.image = this.state.imageDownloadURL;
+    }
+    return trade;
   }
 
   // adds the selected file to state
