@@ -176,7 +176,7 @@ class MessageForm extends React.Component {
           },
           () => {
             this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-              this.sendFileMessage(downloadUrl, ref, pathToUpload);
+              this.sendFileMessage(downloadUrl, ref, pathToUpload); // url for image obtained here? then sendfilemessage is called
             })
             .catch(err => {
               console.error(err);

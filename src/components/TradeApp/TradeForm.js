@@ -1,5 +1,7 @@
 import React from "react";
 import firebase from '../../firebase';
+import mime from 'mime-types';
+import uuidv4 from 'uuid/v4';
 import { 
   Grid, 
   Form, 
@@ -12,7 +14,6 @@ import {
   Divider
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import FileModal from '../ChatApp/Messages/FileModal';
 import ProgressBar from '../ChatApp/Messages/ProgressBar';
 
 class TradeForm extends React.Component {
@@ -20,32 +21,41 @@ class TradeForm extends React.Component {
     idol: '',
     group: '',
     comment: '',
-    image: null,
-    modal: false,
-    errors: [],
+    file: null,
+    authorized: ['image/jpeg', 'image/png'],
     uploadState: '',
+    uploadTask: null,
     percentUploaded: 0,
-    loading: false
+    storageRef: firebase.storage().ref(),
+    tradesRef: firebase.database().ref('trades'),
+    errors: []
   };
-
-  openModal = () => this.setState({ modal: true });
-  closeModal = () => this.setState({ modal: false });
-
-  displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-
   handleSubmit = event => {
-    // sends a post to firestore
-    // must get a post object with createPost
-    // check for an image
-    // if there is an image use the uploadfile function, attach a url to the post object for future rendering.
+    // If there is an Image, upload the image first.
+    if (this.state.file !== null) {
+      if (this.isAuthorized(file.name)) { // check if the file is the correct file type
+        const metadata = { contentType: mime.lookup(file.name) }; // attach meta data
+        this.uploadFile(file, metadata); // uploadFile is a function below that sends file to firestore and then makes a call to postTrade that sends the trade to the database.
+        this.clearFile();
+      }
+    } else {
+      // send post without an image 
+    }
   };
 
+  // check if form is filled out
   isFormValid = ({ idol, group, comment }) => idol || group && comment
+
+  // checks if the file type is in the authorized array in state.
+  isAuthorized = filename => this.state.authorized.includes(mime.lookup(filename));
+
+  // sets file state back to null
+  clearFile = () => this.setState({ file: null });
 
   handleInputError = (errors, inputName) => {
     return errors.some(error => 
@@ -55,21 +65,26 @@ class TradeForm extends React.Component {
         : ""
   }
 
+  displayErrors = errors => errors.map((error, i) => <p key={i}>{error.message}</p>);
+
   createPost = () => {
     //takes state and returns object for sending to firestore
   }
+  // adds the selected file to state
+  addFile = event => {
+    const file = event.target.files[0];
+    if (file) {
+      this.setState({ file });
+    }
+  };
 
-
-  // Pass this to the file modal and customize it for images associated with trades.
   uploadFile = (file, metadata) => {
-    // const pathToUpload = this.state.channel.id;
-    // const ref = this.props.getMessagesRef();
-    // const filePath = `${this.getPath()}/${uuidv4()}.jpg`;
-
-    // this.setState({
-    //   uploadState: 'uploading',
-    //   uploadTask: this.state.storageRef.child(filePath).put(file, metadata)
-    // },
+    const filePath = `trades/images/${uuidv4()}.jpg`;
+  
+    this.setState({
+      uploadState: 'uploading', //disables send button and enables progressBar component
+      uploadTask: this.state.storageRef.child(filePath).put(file, metadata)
+    },
     //   () => {
     //     this.state.uploadTask.on(
     //       'state_changed', 
@@ -104,7 +119,7 @@ class TradeForm extends React.Component {
   };
 
   render() {
-    const { idol, group, comment, errors, loading, uploadState, percentUploaded } = this.state;
+    const { idol, group, comment, errors, uploadState, percentUploaded } = this.state;
 
     return (
       <Grid className='app' textAlign='center' verticalAlign='middle'>
@@ -148,28 +163,22 @@ class TradeForm extends React.Component {
                 type='text' 
               />
 
+              <Input
+                onChange={this.addFile} // Add file function adds file to state
+                fluid
+                label="File types: jpg, png"
+                name="file"
+                type="file"
+              />
+
               <Divider />
 
-              <Button
-                color="teal"
-                // disabled={}
-                // onClick={}
-                content="Add Image"
-                labelPosition="left"
-                icon="cloud upload"
-              />
-
-              <FileModal 
-                modal={modal}
-                closeModal={this.closeModal}
-                uploadFile={this.uploadFile}
-              />
               <ProgressBar 
                 uploadState={uploadState} 
                 percentUploaded={percentUploaded}
               />
-              
-              <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
+
+              <Button disabled={uploadState === 'uploading'} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
             </Segment>
           </Form>
           {errors.length > 0 && (
