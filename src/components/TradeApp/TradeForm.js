@@ -27,6 +27,7 @@ class TradeForm extends React.Component {
     uploadState: '',
     uploadTask: null,
     percentUploaded: 0,
+    loading: false,
     storageRef: firebase.storage().ref(),
     tradesRef: firebase.database().ref('trades'),
     errors: []
@@ -133,7 +134,6 @@ class TradeForm extends React.Component {
           },
           () => {
             this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-              console.log('the image url is ', downloadUrl);
               this.setState({
                 imageDownloadURL: downloadUrl
               });
@@ -155,23 +155,22 @@ class TradeForm extends React.Component {
   // Sends trade object to firestore collection
   addTrade = (newTrade) => {
     const { user, tradesRef } = this.state;
-
+    this.setState({ loading: true });
     if (newTrade) {
-      this.setState({ loading: true });
-      getMessagesRef()
-        .child(channel.id)
+      tradesRef()
+        .child(user.uid)
         .push()
-        .set(this.createMessage())
+        .set(newTrade) // New trade gets added under trades/:useruid
         .then(() => {
-          this.setState({ 
-            loading: false, 
-            message: '', 
+          this.setState({  // reset trade associated data and loading status in state
+            file: null,
+            imageDownloadURL: null,
+            idol: '',
+            group: '',
+            comment: '',
+            loading: false,
             errors: [] 
           });
-          typingRef
-            .child(channel.id)
-            .child(user.uid)
-            .remove();
         })
         .catch(err => {
           console.error(err);
@@ -180,9 +179,9 @@ class TradeForm extends React.Component {
             errors: this.state.errors.concat(err)
           })
         })
-    } else {
+    } else { // if trade object isn't passed.
       this.setState({
-        errors: this.state.errors.concat({ message: 'Add a message' })
+        errors: this.state.errors.concat({ message: 'no trade to add' })
       })
     }
   }
@@ -234,6 +233,7 @@ class TradeForm extends React.Component {
 
               <Input
                 onChange={this.addFile} // Add file function adds file to state
+                disabled={uploadState === 'uploading'}
                 fluid
                 label="File types: jpg, png"
                 name="file"
@@ -247,7 +247,7 @@ class TradeForm extends React.Component {
                 percentUploaded={percentUploaded}
               />
 
-              <Button disabled={uploadState === 'uploading'} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
+              <Button disabled={loading} className={loading ? 'loading' : ''} color='violet' fluid size='large'>Post</Button>
             </Segment>
           </Form>
           {errors.length > 0 && (
