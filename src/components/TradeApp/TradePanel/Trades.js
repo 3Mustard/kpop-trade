@@ -1,29 +1,46 @@
 import React from 'react';
+import firebase from '../../../firebase';
 
 class Trades extends React.Component {
     state = {
-        trades: []
+        trades: [],
+        tradesRef: firebase.collection('trades')
         // get trades ref
         // account for loading trades
     }
 
+    componentDidMount() {
+        this.getTrades();
+    }
+
+    getTrades = () => {
+        let loadedTrades = [];
+        const tradesRef = this.state.tradesRef;
+
+        tradesRef
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(trade => {
+                    loadedTrades.push(trade);
+                })
+            })
+    }
+
     // cutomize for trades
-    // addMessageListener = channelId => {
-    //     let loadedMessages = [];
-    //     const ref = this.getMessagesRef();
-    //     ref.child(channelId).on('child_added', snap => {
+    // addTradesListener = () => {
+    //     let loadedTrades = [];
+    //     const tradesRef = this.state.tradesRef;
+    //     ref.child(c).on('child_added', snap => {
     //       loadedMessages.push(snap.val());
     //       this.setState({
     //         messages: loadedMessages,
     //         messagesLoading: false
-    //       });
-    //       this.countUniqueUsers(loadedMessages);
-    //       this.countUserPosts(loadedMessages);
-    //     });
-    //     if (loadedMessages.length === 0) {
-    //       this.setState({ messagesLoading: false })
-    //     }
-    //     this.addToListeners(channelId, ref, 'child_added');
+    //       }
+//     const citiesRef = db.collection('cities');
+// const snapshot = await citiesRef.get();
+// snapshot.forEach(doc => {
+//   console.log(doc.id, '=>', doc.data());
+// });
     //   };
 
     render() {
