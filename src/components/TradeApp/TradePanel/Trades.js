@@ -4,9 +4,8 @@ import firebase from '../../../firebase';
 class Trades extends React.Component {
     state = {
         trades: [],
-        tradesRef: firebase.collection('trades')
-        // get trades ref
-        // account for loading trades
+        tradesRef: firebase.collection('trades'),
+        loading: false
     }
 
     componentDidMount() {
@@ -24,6 +23,12 @@ class Trades extends React.Component {
                     loadedTrades.push(trade);
                 })
             })
+    }
+
+    renderTrades = () => {
+        this.state.trades && this.state.trades.map(trade => {
+            console.log(trade);
+        })
     }
 
     // cutomize for trades
