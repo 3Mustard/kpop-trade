@@ -83,9 +83,25 @@ const appComponent_reducer = (state=initialAppComponent, action) => {
     }
 }
 
+const initialTrades = {
+    trades: null
+}
+
+const trades_reducer = (state=initialTrades, action) => {
+    switch(action.type) {
+        case action.types.SET_TRADES:
+            return {
+                trades: action.payload
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user: user_reducer,
     channel: channel_reducer,
+    trades: trades_reducer,
     colors: colors_reducer,
     appComponent: appComponent_reducer
 });

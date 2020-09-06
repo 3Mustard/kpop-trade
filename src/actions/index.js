@@ -67,3 +67,14 @@ export const setAppComponent = (component) => {
         }
     };
 }
+
+// ** Trade actions **
+
+export const setTrades = (trades) => {
+    return {
+        type: actionTypes.SET_TRADES,
+        payload: {
+            trades
+        }
+    }
+}
