@@ -89,7 +89,7 @@ const initialTrades = {
 
 const trades_reducer = (state=initialTrades, action) => {
     switch(action.type) {
-        case action.types.SET_TRADES:
+        case actionTypes.SET_TRADES:
             return {
                 trades: action.payload
             }

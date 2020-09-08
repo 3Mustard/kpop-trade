@@ -155,13 +155,13 @@ class TradeForm extends React.Component {
 
   // Sends trade object to firestore collection
   addTrade = (newTrade) => {
-    const { user, tradesRef } = this.state;
+    const { tradesRef } = this.state;
     this.setState({ loading: true });
     if (newTrade) {
       tradesRef
-        .child(user.uid)
+        // .child() // may need random number to assign children if not done automatic by google
         .push()
-        .set(newTrade) // New trade gets added under trades/:useruid
+        .set(newTrade) // New trade gets added under trades/?
         .then(() => {
           this.setState({  // reset trade associated data and loading status in state
             file: null,

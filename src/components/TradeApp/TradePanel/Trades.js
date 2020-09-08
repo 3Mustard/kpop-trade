@@ -20,7 +20,7 @@ class Trades extends React.Component {
             .get()
             .then(snapshot => {
                 snapshot.forEach(trade => {
-                    loadedTrades.push(trade);
+                    console.log(trade);
                 })
             })
     }
