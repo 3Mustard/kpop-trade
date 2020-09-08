@@ -79,6 +79,7 @@ class Messages extends React.Component {
     this.addTypingListeners(channelId);
   };
 
+  // gets all messages in a channel
   addMessageListener = channelId => {
     let loadedMessages = [];
     const ref = this.getMessagesRef();
