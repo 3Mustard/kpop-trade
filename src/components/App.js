@@ -4,8 +4,8 @@ import { Grid, Menu } from 'semantic-ui-react';
 import "./App.css";
 
 import UserPanel from './ChatApp/SidePanel/UserPanel';
-import Messages from './ChatApp/Messages/Messages'
 import TradePanel from './TradeApp/TradePanel/TradePanel';
+
 
 //prettier-ignore
 class App extends React.Component {
@@ -26,8 +26,8 @@ class App extends React.Component {
           
           <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
           {/* <Starred currentUser={currentUser}/> */}
-          {/* <Channels currentUser={currentUser}/> */}
-          {/* <DirectMessages currentUser={currentUser}/> */}
+          {/* <Channels currentUser={currentUser}/>
+          <DirectMessages currentUser={currentUser}/> */}
           Add trade button <br></br>
           view trades button 
         </Menu>
@@ -35,12 +35,7 @@ class App extends React.Component {
       <Grid.Column style={{ marginLeft: 320 }}>
           {/* MESSAGES */}
           { appComponent === 'chat' 
-            ? <Messages
-                key={currentChannel && currentChannel.id}
-                currentChannel={currentChannel}
-                currentUser={currentUser}
-                isPrivateChannel={isPrivateChannel}
-              /> 
+            ? null
             : null 
           }
           {/* TRADES */}
