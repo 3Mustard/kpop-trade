@@ -5,26 +5,12 @@ import TradeForm from '../TradeForm';
 import Trades from '../TradePanel/Trades';
 
 const TradePanel = (props) => (
+
+  // maybe index decides what component gets displayed and this gets deleted.
   <div>
-    <TradeForm currentUser={props.currentUser}/>
+    {/* <TradeForm currentUser={props.currentUser}/> */}
     <Trades />
-  </div>
-  // <Card.Group itemsPerRow={6}>
-  //   {/* create function that populates tradeCard components into this group */}
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  //   <TradeCard />
-  // </Card.Group>
-  
+  </div>  
 )
 
 export default TradePanel;

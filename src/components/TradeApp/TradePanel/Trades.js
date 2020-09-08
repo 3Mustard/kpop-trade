@@ -1,56 +1,66 @@
 import React from 'react';
 import firebase from '../../../firebase';
+import { Segment, Comment} from 'semantic-ui-react'
+import Trade from './Trade';
 
 class Trades extends React.Component {
     state = {
         trades: [],
         tradesRef: firebase.database().ref('trades'),
-        loading: false
+        tradesLoading: true,
+        user: '' // pass me curent user please
     }
 
     componentDidMount() {
         this.addListeners();
     }
 
-    // Component will unmount 
-    // remove listeners 
+    componentWillUnmount() {
+        this.state.tradesRef.off();
+      }
 
     addListeners = () => {
         this.addTradesListener();
         // add listener for a new trade added or removed
     }
 
-    // get all trades from database 
+    // get all trades from database and adds to state
     addTradesListener = () => {
         let loadedTrades = [];
         const { ref } = this.state.tradesRef;
         ref.on('child_added', snap => {
         loadedTrades.push(snap.val());
-        console.log(loadedTrades)
-        // this.setState({
-        //     messages: loadedMessages,
-        //     messagesLoading: false
-        // });
-        // this.countUniqueUsers(loadedMessages);
-        // this.countUserPosts(loadedMessages);
-        // });
-        // if (loadedMessages.length === 0) {
-        // this.setState({ messagesLoading: false })
-        // }
-        // this.addToListeners(channelId, ref, 'child_added');
-        })
+        this.setState({
+            trades: loadedTrades,
+            tradesLoading: false
+        });
+        });
+        if (loadedTrades.length === 0) {
+            this.setState({ tradesLoading: false });
+        }
     };
 
-    renderTrades = () => {
-        this.state.trades && this.state.trades.map(trade => {
-            console.log(trade);
-            return 0;
-        })
-    }
+    displayTrades = trades => (
+        trades.map(trade => (
+            <div>trade card</div>
+        ))
+    )
 
     render() {
+        const { trades } = this.state;
+        console.log(trades);
+        if (trades.length > 0) {
+            console.log('more than 0')
+        }
+
         return (
-            <div>trades</div>
+            <React.Fragment>
+                <Segment> 
+                <Comment.Group>{/* Messages, the className of the segment might need to be in this group instead */}
+                    {trades.length > 0 ? this.displayTrades(trades) : null}
+                </Comment.Group>
+                </Segment>
+            </React.Fragment>
         )
     }
 
