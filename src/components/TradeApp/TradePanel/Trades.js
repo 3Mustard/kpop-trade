@@ -12,8 +12,12 @@ class Trades extends React.Component {
         this.addListeners();
     }
 
+    // Component will unmount 
+    // remove listeners 
+
     addListeners = () => {
         this.addTradesListener();
+        // add listener for a new trade added or removed
     }
 
     // get all trades from database 
@@ -40,25 +44,9 @@ class Trades extends React.Component {
     renderTrades = () => {
         this.state.trades && this.state.trades.map(trade => {
             console.log(trade);
+            return 0;
         })
     }
-
-    // cutomize for trades
-    // addTradesListener = () => {
-    //     let loadedTrades = [];
-    //     const tradesRef = this.state.tradesRef;
-    //     ref.child(c).on('child_added', snap => {
-    //       loadedMessages.push(snap.val());
-    //       this.setState({
-    //         messages: loadedMessages,
-    //         messagesLoading: false
-    //       }
-//     const citiesRef = db.collection('cities');
-// const snapshot = await citiesRef.get();
-// snapshot.forEach(doc => {
-//   console.log(doc.id, '=>', doc.data());
-// });
-    //   };
 
     render() {
         return (

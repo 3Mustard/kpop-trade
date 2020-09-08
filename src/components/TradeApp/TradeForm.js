@@ -62,7 +62,7 @@ class TradeForm extends React.Component {
   };
 
   // check if form is filled out
-  isFormValid = ({ idol, group, comment }) => idol || group && comment
+  isFormValid = ({ idol, group, comment }) => (idol || group) && comment;
 
   // checks if the file type is in the authorized array in state.
   isAuthorized = filename => this.state.authorized.includes(mime.lookup(filename));
