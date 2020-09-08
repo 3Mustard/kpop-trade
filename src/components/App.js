@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { Grid, Menu } from 'semantic-ui-react';
 import "./App.css";
 
-import UserPanel from './ChatApp/SidePanel/UserPanel';
-import TradePanel from './TradeApp/TradePanel/TradePanel';
+import UserPanel from './Mutual/UserPanel';
+import TradePanel from './TradeApp/TradePanel';
 
 
 //prettier-ignore
 class App extends React.Component {
 
   render() {
-    const { appComponent, currentUser, currentChannel, isPrivateChannel, primaryColor, secondaryColor } = this.props;
+    const { appComponent, currentUser, primaryColor, secondaryColor } = this.props;
 
     return (
       <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
@@ -55,11 +55,8 @@ const mapStateToProps = state => {
   return {
     appComponent: state.appComponent.component,
     currentUser: state.user.currentUser,
-    currentChannel: state.channel.currentChannel,
-    isPrivateChannel: state.channel.isPrivateChannel,
     primaryColor: state.colors.primaryColor,
-    secondaryColor: state.colors.secondaryColor,
-    userPosts: state.channel.userPosts
+    secondaryColor: state.colors.secondaryColor
   }
 };
 

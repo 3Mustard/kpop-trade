@@ -1,8 +1,8 @@
 import React from 'react'
 // import { Card } from 'semantic-ui-react'
 // const src = '/images/wireframe/image.png'
-import TradeForm from '../TradeForm';
-import Trades from '../TradePanel/Trades';
+import TradeForm from './TradeForm';
+import Trades from './Trades';
 
 const TradePanel = (props) => (
 

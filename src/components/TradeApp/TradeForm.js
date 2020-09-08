@@ -14,7 +14,7 @@ import {
   Divider,
   Input
 } from 'semantic-ui-react';
-import ProgressBar from '../ChatApp/Messages/ProgressBar';
+import ProgressBar from '../Mutual/ProgressBar';
 
 class TradeForm extends React.Component {
   state = {
