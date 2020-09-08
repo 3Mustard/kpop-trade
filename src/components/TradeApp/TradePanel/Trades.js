@@ -16,7 +16,7 @@ class Trades extends React.Component {
         this.addTradesListener();
     }
 
-    // get all trades from database
+    // get all trades from database 
     addTradesListener = () => {
         let loadedTrades = [];
         const { ref } = this.state.tradesRef;
