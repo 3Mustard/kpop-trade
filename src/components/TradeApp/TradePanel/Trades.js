@@ -42,21 +42,22 @@ class Trades extends React.Component {
 
     displayTrades = trades => (
         trades.map(trade => (
-            <div>trade card</div>
+            <Trade 
+                key={trade.timestamp}
+                details={trade.details}
+                image={trade.image}
+                user={trade.user}
+            />
         ))
     )
 
     render() {
         const { trades } = this.state;
-        console.log(trades);
-        if (trades.length > 0) {
-            console.log('more than 0')
-        }
 
         return (
             <React.Fragment>
                 <Segment> 
-                <Comment.Group>{/* Messages, the className of the segment might need to be in this group instead */}
+                <Comment.Group> 
                     {trades.length > 0 ? this.displayTrades(trades) : null}
                 </Comment.Group>
                 </Segment>
