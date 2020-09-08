@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../../../firebase';
-import { Segment, Comment} from 'semantic-ui-react'
+import { Segment, Card } from 'semantic-ui-react'
 import Trade from './Trade';
 
 class Trades extends React.Component {
@@ -57,9 +57,9 @@ class Trades extends React.Component {
         return (
             <React.Fragment>
                 <Segment> 
-                <Comment.Group> 
+                <Card.Group itemsPerRow={6}> 
                     {trades.length > 0 ? this.displayTrades(trades) : null}
-                </Comment.Group>
+                </Card.Group>
                 </Segment>
             </React.Fragment>
         )

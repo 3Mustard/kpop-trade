@@ -16,7 +16,8 @@ const Trade = ({ details, image, user, timestamp }) => (
     <Card.Content extra>
       <a>
         <Icon name='user' />
-        posted by: {user.name}
+        {/* this should be a component to open a direct message between current user and the user who posted this. */}
+        posted by: {user.name} 
       </a>
     </Card.Content>
   </Card>
