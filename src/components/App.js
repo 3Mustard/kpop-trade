@@ -25,19 +25,10 @@ class App extends React.Component {
         >
           
           <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
-          {/* <Starred currentUser={currentUser}/> */}
-          {/* <Channels currentUser={currentUser}/>
-          <DirectMessages currentUser={currentUser}/> */}
-          Add trade button <br></br>
-          view trades button 
+
         </Menu>
 
       <Grid.Column style={{ marginLeft: 320 }}>
-          {/* MESSAGES */}
-          { appComponent === 'chat' 
-            ? null
-            : null 
-          }
           {/* TRADES */}
           { appComponent === 'trade' 
             ? <TradePanel 
