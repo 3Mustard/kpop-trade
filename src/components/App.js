@@ -5,7 +5,7 @@ import "./App.css";
 
 import UserPanel from './Mutual/UserPanel';
 import TradePanel from './TradeApp/TradePanel';
-
+import ChatPanel from './ChatApp/ChatPanel';
 
 //prettier-ignore
 class App extends React.Component {
@@ -32,6 +32,15 @@ class App extends React.Component {
           {/* TRADES */}
           { appComponent === 'trade' 
             ? <TradePanel 
+                currentUser={currentUser}
+              /> 
+            : null 
+          }
+          {/* ADD TRADE */}
+    
+          {/* DIRECT MESSAGES */}
+          { appComponent === 'chat' 
+            ? <ChatPanel 
                 currentUser={currentUser}
               /> 
             : null 
