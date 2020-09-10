@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from '../../firebase';
-import { Segment, Card } from 'semantic-ui-react'
+import { Segment, Card, Modal } from 'semantic-ui-react'
 import Trade from './Trade';
 import QuickReplyModal from './QuickReplyModal';
 
@@ -42,6 +42,13 @@ class Trades extends React.Component {
         }
     };
 
+    // when a user clicks a trade they want to respond to
+    replyToTrade = (recipient) => {
+        console.log(recipient)
+        this.openModal();
+        this.setRecipient(recipient);
+    }
+
     displayTrades = trades => (
         trades.map(trade => (
             // can add logic here to prevent trades by logged in user from rendering
@@ -50,18 +57,20 @@ class Trades extends React.Component {
                 details={trade.details}
                 image={trade.image}
                 user={trade.user}
-                openModal={this.openModal}
+                replyToTrade={this.replyToTrade}
             />
         ))
     )
 
-    replyToTrade = (event) => {
-        // open modal that sends message to a user.
-    }
-
-    openModal = () => this.setState({ modal: true });
-
+    openModal = (id) => this.setState({ modal: true });
     closeModal = () => this.setState({ modal: false });
+
+    // Store user who will be recieving message
+    setRecipient = (recipient) => {
+        this.setState({
+            recipient
+        })
+    }
 
     render() {
         const { trades } = this.state;
