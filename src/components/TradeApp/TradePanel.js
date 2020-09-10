@@ -4,12 +4,12 @@ import React from 'react'
 import TradeForm from './TradeForm';
 import Trades from './Trades';
 
-const TradePanel = (props) => (
+const TradePanel = ({ currentUser }) => (
 
-  // maybe index decides what component gets displayed and this gets deleted.
   <div>
+    {/* Button to toggle the trade form and trades */}
     {/* <TradeForm currentUser={props.currentUser}/> */}
-    <Trades />
+    <Trades currentUser={currentUser}/>
   </div>  
 )
 

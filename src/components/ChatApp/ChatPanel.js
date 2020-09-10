@@ -7,7 +7,8 @@ import MessageForm from "./MessageForm";
 
 class ChatPanel extends React.Component {
   state = {
-    
+    user: this.props.currentUser,
+    recipient: null // this.props.recipient 
   };
 
   

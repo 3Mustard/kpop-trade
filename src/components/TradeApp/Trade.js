@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 
-const Trade = ({ details, image, user, timestamp }) => (
+const Trade = ({ details, image, user, openModal }) => (
   <Card>
     <Image src={image} wrapped ui={false} />
     <Card.Content>
@@ -14,7 +14,7 @@ const Trade = ({ details, image, user, timestamp }) => (
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <a>
+      <a onClick={openModal}>
         <Icon name='user' />
         {/* this should be a component to open a direct message between current user and the user who posted this. */}
         posted by: {user.name} 
