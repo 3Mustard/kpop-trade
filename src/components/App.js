@@ -11,6 +11,7 @@ import ChatPanel from './ChatApp/ChatPanel';
 class App extends React.Component {
 
   render() {
+    // Assign values from props
     const { appComponent, currentUser, primaryColor, secondaryColor } = this.props;
 
     return (
@@ -23,13 +24,13 @@ class App extends React.Component {
           vertical
           style={{ background: primaryColor, fontSize: '1.2rem'}}
         >
-          
+          {/* USER PANEL */}
           <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
 
         </Menu>
 
       <Grid.Column style={{ marginLeft: 320 }}>
-          {/* TRADES */}
+          {/* TRADE PANEL */}
           { appComponent === 'trade' 
             ? <TradePanel 
                 currentUser={currentUser}
@@ -38,7 +39,7 @@ class App extends React.Component {
           }
           {/* ADD TRADE */}
     
-          {/* DIRECT MESSAGES */}
+          {/* CHAT PANEL */}
           { appComponent === 'chat' 
             ? <ChatPanel 
                 currentUser={currentUser}

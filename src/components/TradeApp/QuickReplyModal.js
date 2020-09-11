@@ -14,13 +14,16 @@ class QuickReplyModal extends Component {
     usersRef: firebase.database().ref('users'),
   }
 
+  // changes state value to user input
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
+  // sends message to database and reset state and modal
   handleSubmit = () => {
     this.sendReply();
     this.props.resetAfterSubmit();
   }
 
+  // returns message object
   createMessage = () => {
     const message = {
       timestamp: firebase.database.ServerValue.TIMESTAMP,
@@ -34,6 +37,7 @@ class QuickReplyModal extends Component {
     return message;
   }
 
+  // Pushed a new message node to the appropriate chat channel
   sendReply = () => {
     const { content, recipient, user, chatsRef, usersRef } = this.state;
     const chatId = this.getUniqueChatId();
@@ -47,6 +51,7 @@ class QuickReplyModal extends Component {
       .set(this.createMessage());
   }
 
+  // returns a unique chat id based on sender and recivers ID's
   getUniqueChatId = () => {
     const currentUserId = this.state.user.uid;
     const recipientId = this.state.recipient.id;
@@ -65,38 +70,3 @@ class QuickReplyModal extends Component {
 }
 
 export default QuickReplyModal;
-
-// sendMessage = () => {
-//   const { getMessagesRef } = this.props;
-//   const { message, channel, user, typingRef } = this.state;
-
-//   if (message) {
-//     this.setState({ loading: true });
-//     getMessagesRef()
-//       .child(channel.id)
-//       .push()
-//       .set(this.createMessage())
-//       .then(() => {
-//         this.setState({ 
-//           loading: false, 
-//           message: '', 
-//           errors: [] 
-//         });
-//         typingRef
-//           .child(channel.id)
-//           .child(user.uid)
-//           .remove();
-//       })
-//       .catch(err => {
-//         console.error(err);
-//         this.setState({
-//           loading: false,
-//           errors: this.state.errors.concat(err)
-//         })
-//       })
-//   } else {
-//     this.setState({
-//       errors: this.state.errors.concat({ message: 'Add a message' })
-//     })
-//   }
-// };
