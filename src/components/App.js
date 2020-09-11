@@ -7,7 +7,6 @@ import UserPanel from './Mutual/UserPanel';
 import TradePanel from './TradeApp/TradePanel';
 import ChatPanel from './ChatApp/ChatPanel';
 
-//prettier-ignore
 class App extends React.Component {
 
   render() {

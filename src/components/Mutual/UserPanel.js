@@ -214,6 +214,7 @@ class UserPanel extends React.Component {
                           </Button>
                       </Modal.Actions>
                     </Modal>
+                    {/* 1:1 CHATS LIST */}
                 </Grid.Column>
             </Grid>
         )
