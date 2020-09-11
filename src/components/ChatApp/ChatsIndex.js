@@ -36,6 +36,15 @@ class ChatsIndex extends React.Component {
     });
   }
 
+  // returns only the users you have open chats with. 
+  filterUsers = () => {
+    const { users } = this.state;
+    const userId = this.state.user.uid;
+    let filteredUsers = [];
+    // need array of all conversations
+    
+  }
+
   render() {
     const { users } = this.state;
 
