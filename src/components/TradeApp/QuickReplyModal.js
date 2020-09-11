@@ -11,11 +11,12 @@ class QuickReplyModal extends Component {
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-  
+    const { handleSubmit } = this.props;
+
     return (
       <Form>
         <Form.TextArea onChange={this.handleChange} name='content' value={this.state.content} label='Reply' placeholder='Reply to poster...' />
-        <Form.Button>Send</Form.Button>
+        <Form.Button onClick={handleSubmit}>Send</Form.Button>
       </Form>
     )
   }

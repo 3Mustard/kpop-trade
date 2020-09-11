@@ -10,7 +10,8 @@ class Trades extends React.Component {
         tradesRef: firebase.database().ref('trades'),
         tradesLoading: true,
         modal: false,
-        user: this.props.currentUser
+        user: this.props.currentUser,
+        recipient: null
     }
 
     componentDidMount() {
@@ -72,6 +73,13 @@ class Trades extends React.Component {
         })
     }
 
+    handleSubmit = () => {
+        // sends message to recipient
+        console.log('msg sent');
+        this.closeModal();
+        this.setRecipient(null);
+    }
+
     render() {
         const { trades } = this.state;
 
@@ -86,7 +94,7 @@ class Trades extends React.Component {
                     >
                         <Modal.Header>Reply to Posting</Modal.Header>
                         <Modal.Content>
-                        <QuickReplyModal handleClose={this.closeModal} />
+                        <QuickReplyModal handleClose={this.closeModal} handleSubmit={this.handleSubmit}/>
                         </Modal.Content>
                     </Modal> 
 
