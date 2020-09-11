@@ -73,20 +73,20 @@ class Trades extends React.Component {
         })
     }
 
-    handleSubmit = () => {
-        // sends message to recipient
+    // resets state and closes modal after a message is sent.
+    resetAfterSubmit = () => {
         console.log('msg sent');
         this.closeModal();
         this.setRecipient(null);
     }
 
     render() {
-        const { trades } = this.state;
+        const { trades, user, recipient } = this.state;
 
         return (
             <React.Fragment>
                 <Segment>
-                    {/* QUICK REPLY MODAL */}
+                    {/* MODAL */}
                     <Modal
                         open={this.state.modal}
                         onClose={this.closeModal}
@@ -94,7 +94,12 @@ class Trades extends React.Component {
                     >
                         <Modal.Header>Reply to Posting</Modal.Header>
                         <Modal.Content>
-                        <QuickReplyModal handleClose={this.closeModal} handleSubmit={this.handleSubmit}/>
+                            {/* QUICK REPLAY COMPONENT */}
+                        <QuickReplyModal 
+                            handleClose={this.closeModal} 
+                            recipient={recipient} currentUser={user} 
+                            resetAfterSubmit={this.resetAfterSubmit}
+                        />
                         </Modal.Content>
                     </Modal> 
 
