@@ -4,6 +4,7 @@ import AvatarEditor from 'react-avatar-editor';
 import { connect } from 'react-redux';
 import { setAppComponent } from '../../actions';
 import { Button, Grid, Header, Icon, Dropdown, Image, Input, Modal } from 'semantic-ui-react';
+import ChatsIndex from '../ChatApp/ChatsIndex';
 
 class UserPanel extends React.Component {
 
@@ -215,6 +216,7 @@ class UserPanel extends React.Component {
                       </Modal.Actions>
                     </Modal>
                     {/* 1:1 CHATS LIST */}
+                    <ChatsIndex currentUser={user}/>
                 </Grid.Column>
             </Grid>
         )

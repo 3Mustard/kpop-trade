@@ -9,10 +9,10 @@ import firebase from '../../firebase';
 
 class ChatsIndex extends React.Component {
   state = {
-    chatRef,
-    usersRef,
+    chatsRef: firebase.database().ref('chat'),
+    usersRef: firebase.database().ref('users'),
     users: [],
-    currentUser
+    user: this.props.currentUser
   }
 
 

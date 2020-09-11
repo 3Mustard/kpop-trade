@@ -11,7 +11,7 @@ class QuickReplyModal extends Component {
     recipient: this.props.recipient,
     content: '',
     chatsRef: firebase.database().ref('chat'),
-    usersRef: firebase.database().ref('users'),
+    usersRef: firebase.database().ref('users')
   }
 
   // changes state value to user input
