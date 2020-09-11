@@ -6,6 +6,7 @@
 
 import React from 'react';
 import firebase from '../../firebase';
+import { Icon, Menu } from 'semantic-ui-react'
 
 class ChatsIndex extends React.Component {
   state = {
@@ -33,11 +34,35 @@ class ChatsIndex extends React.Component {
         this.setState({ users: loadedUsers });
       }
     });
+  }
 
   render() {
+    const { users } = this.state;
+
     return (
-      <div></div>
-    )
+      <Menu.Menu className='menu'>
+        <Menu.Item>
+          <span>
+            <Icon name='mail' /> DIRECT MESSAGES
+          </span>{" "}
+          ({users.length})
+        </Menu.Item>
+        {users.map(user => (
+          <Menu.Item
+            key={user.uid}
+            // active={user.uid === activeChannel}
+            // onClick={() => this.changeChannel(user)}
+            style={{ opacity: 0.7, fontStyle: 'italic' }}
+          >
+            <Icon
+              name='circle'
+              // color={this.isUserOnline(user) ? 'green' : 'red'}
+            />
+            @ {user.name}
+          </Menu.Item>
+        ))}
+      </Menu.Menu>
+    );
   }
 
 }
