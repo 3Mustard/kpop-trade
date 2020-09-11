@@ -15,6 +15,24 @@ class ChatsIndex extends React.Component {
     user: this.props.currentUser
   }
 
+  componentDidMount() {
+    if (this.state.user) {
+      this.addListeners(this.state.user.uid);
+    }
+  }
+
+  addListeners = currentUserUid => {
+    // ADD USERS FROM USERS COLLECTION TO STATE
+    let loadedUsers = [];
+    this.state.usersRef.on('child_added', snap => {
+      if (currentUserUid !== snap.key) {
+        let user = snap.val();
+        user["uid"] = snap.key;
+        user["status"] = "offline"; // can use status to set listeners on firebase connection. see direct messages component https://github.com/3Mustard/chat-app/blob/master/src/components/SidePanel/DirectMessages.js
+        loadedUsers.push(user);
+        this.setState({ users: loadedUsers });
+      }
+    });
 
   render() {
     return (
