@@ -216,7 +216,7 @@ class UserPanel extends React.Component {
                       </Modal.Actions>
                     </Modal>
                     {/* 1:1 CHATS LIST */}
-                    <ChatsIndex currentUser={user}/>
+                    <ChatsIndex currentUser={user} currentChannel={this.props.currentChannel} />
                 </Grid.Column>
             </Grid>
         )

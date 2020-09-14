@@ -24,7 +24,7 @@ class App extends React.Component {
           style={{ background: primaryColor, fontSize: '1.2rem'}}
         >
           {/* USER PANEL */}
-          <UserPanel primaryColor={primaryColor} currentUser={currentUser}/>
+          <UserPanel primaryColor={primaryColor} currentUser={currentUser} currentChannel={currentChannel} />
 
         </Menu>
 
@@ -39,13 +39,13 @@ class App extends React.Component {
           {/* ADD TRADE */}
     
           {/* CHAT PANEL */}
-          { appComponent === 'chat' 
+          {/* { appComponent === 'chat' 
             ? <ChatPanel 
                 currentUser={currentUser}
                 currentChannel={currentChannel}
               /> 
             : null 
-          }
+          } */}
       </Grid.Column>
   </Grid> 
     )

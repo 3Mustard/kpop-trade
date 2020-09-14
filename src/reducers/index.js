@@ -76,7 +76,7 @@ const trades_reducer = (state=initialTrades, action) => {
 
 // CHAT CHANNEL REDUCER
 const initialChannelState = {
-    currentChannel: null
+    currentChannel: null // will be an id composed of two users, 'id1-id2'
 }
 
 const channel_reducer = (state=initialChannelState, action) => {
