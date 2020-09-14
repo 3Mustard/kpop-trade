@@ -8,7 +8,7 @@ import React from 'react';
 import firebase from '../../firebase';
 import { connect } from 'react-redux';
 import { Icon, Menu } from 'semantic-ui-react';
-import { setCurrentChannel } from '../../actions';
+import { setCurrentChannel, setAppComponent } from '../../actions';
 
 class ChatsIndex extends React.Component {
   state = {
@@ -85,9 +85,11 @@ class ChatsIndex extends React.Component {
     this.setState({ filteredUsers });
   }
 
+  // obtains unique chat id and sends it to action/reducer
   changeChannel = user => {
     const channel = this.getUniqueChatId(user);
     this.props.setCurrentChannel(channel);
+    this.props.setAppComponent('chat');
   }
 
   render() {
@@ -104,7 +106,7 @@ class ChatsIndex extends React.Component {
         {filteredUsers.map(user => (
           <Menu.Item
             key={user.uid}
-            active={this.getUniqueChatId(user.uid) === currentChannel}
+            active={this.getUniqueChatId(user) === currentChannel}
             onClick={() => this.changeChannel(user)}
             style={{ opacity: 0.7, fontStyle: 'italic' }}
           >
@@ -123,5 +125,5 @@ class ChatsIndex extends React.Component {
 
 export default connect(
   null,
-  { setCurrentChannel }
+  { setCurrentChannel, setAppComponent }
 )(ChatsIndex);

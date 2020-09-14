@@ -39,13 +39,13 @@ class App extends React.Component {
           {/* ADD TRADE */}
     
           {/* CHAT PANEL */}
-          {/* { appComponent === 'chat' 
+          { appComponent === 'chat' 
             ? <ChatPanel 
                 currentUser={currentUser}
                 currentChannel={currentChannel}
               /> 
             : null 
-          } */}
+          }
       </Grid.Column>
   </Grid> 
     )
