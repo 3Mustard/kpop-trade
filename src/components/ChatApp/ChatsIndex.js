@@ -24,6 +24,15 @@ class ChatsIndex extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    this.state.usersRef.off();
+    this.state.chatsRef.off();
+  }
+
   addListeners = currentUserUid => {
     // ADD ALL USERS except current FROM USERS COLLECTION TO STATE
     let loadedUsers = [];
