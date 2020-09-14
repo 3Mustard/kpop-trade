@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import * as actionTypes from '../actions/types';
 
+// USER REDUCER
 const initialUserState = {
     currentUser: null,
     isLoading: true
@@ -23,6 +24,7 @@ const user_reducer = (state=initialUserState, action) => {
     }
 }
 
+// COLOR REDUCER
 const initialColorState = {
     primaryColor: '#4c3c4c',
     secondaryColor: '#eee'
@@ -40,6 +42,7 @@ const colors_reducer = (state=initialColorState, action) => {
     }
 }
 
+// CURRENT COMPONENT REDUCER
 const initialAppComponent = {
     component: 'trade'
 }
@@ -55,6 +58,7 @@ const appComponent_reducer = (state=initialAppComponent, action) => {
     }
 }
 
+// TRADES REDUCER
 const initialTrades = {
     trades: null
 }
@@ -70,8 +74,26 @@ const trades_reducer = (state=initialTrades, action) => {
     }
 }
 
+// CHAT CHANNEL REDUCER
+const initialChannelState = {
+    currentChannel: null
+}
+
+const channel_reducer = (state=initialChannelState, action) => {
+    switch (action.type) {
+        case actionTypes.SET_CURRENT_CHANNEL:
+            return {
+                ...state,
+                currentChannel: action.payload.currentChannel
+            }
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     user: user_reducer,
+    channel: channel_reducer,
     trades: trades_reducer,
     colors: colors_reducer,
     appComponent: appComponent_reducer
