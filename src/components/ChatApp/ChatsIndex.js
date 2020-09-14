@@ -13,6 +13,7 @@ class ChatsIndex extends React.Component {
     chatsRef: firebase.database().ref('chat'),
     usersRef: firebase.database().ref('users'),
     users: [],
+    chatIds: [], // these are the IDs of users the current user has a chat open with. to get the full chat id run getUniqueChatId(recipientsID)
     user: this.props.currentUser
   }
 
@@ -35,14 +36,17 @@ class ChatsIndex extends React.Component {
       }
     });
 
-    // ADD CHATS LISTENER TO GET ALL CHAT ID's CURRENT USER IS A PART OF
+    // GET ALL CHAT ID's CURRENT USER IS A PART OF
     let chatIds = []; // these are the id's of chats the current user is a part of.
     this.state.chatsRef.on('child_added', snap => {
       // chat ids are 'user1id-user2id' the larger id goes first. Split to get each users id.
       let id1 = snap.key.split('-')[0];
       let id2 = snap.key.split('-')[1];
+      if (id1 === currentUserUid ) { chatIds.push(id2) }
+      if (id2 === currentUserUid ) { chatIds.push(id1) }
+      this.setState({ chatIds });
+    });
 
-    })
   }
 
   // returns a unique chat id based on sender and recivers ID's
