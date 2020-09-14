@@ -41,9 +41,6 @@ class QuickReplyModal extends Component {
   sendReply = () => {
     const { content, recipient, user, chatsRef, usersRef } = this.state;
     const chatId = this.getUniqueChatId();
-    // future use to get ids of each user from node id
-    // const id1 = chatId.split('-')[0];
-    // const id2 = chatId.split('-')[1];
 
     chatsRef
       .child(chatId) // create unique node with both users ID's seperated by a '-'

@@ -23,7 +23,7 @@ class ChatsIndex extends React.Component {
   }
 
   addListeners = currentUserUid => {
-    // ADD USERS FROM USERS COLLECTION TO STATE
+    // ADD ALL USERS except current FROM USERS COLLECTION TO STATE
     let loadedUsers = [];
     this.state.usersRef.on('child_added', snap => {
       if (currentUserUid !== snap.key) {
@@ -34,14 +34,31 @@ class ChatsIndex extends React.Component {
         this.setState({ users: loadedUsers });
       }
     });
+
+    // ADD CHATS LISTENER TO GET ALL CHAT ID's CURRENT USER IS A PART OF
+    let chatIds = []; // these are the id's of chats the current user is a part of.
+    this.state.chatsRef.on('child_added', snap => {
+      // chat ids are 'user1id-user2id' the larger id goes first. Split to get each users id.
+      let id1 = snap.key.split('-')[0];
+      let id2 = snap.key.split('-')[1];
+
+    })
+  }
+
+  // returns a unique chat id based on sender and recivers ID's
+  getUniqueChatId = (recipient) => {
+    const currentUserId = this.state.user.uid;
+    const recipientId = recipient.id;
+
+    return recipientId < currentUserId ? `${recipientId}-${currentUserId}` : `${currentUserId}-${recipientId}`;
   }
 
   // returns only the users you have open chats with. 
+  // pass an array of user ids to filter with
   filterUsers = () => {
     const { users } = this.state;
     const userId = this.state.user.uid;
     let filteredUsers = [];
-    // need array of all conversations
     
   }
 
