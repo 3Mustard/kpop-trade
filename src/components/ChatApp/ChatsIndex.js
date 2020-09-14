@@ -97,7 +97,7 @@ class ChatsIndex extends React.Component {
           <Menu.Item
             key={user.uid}
             // active={user.uid === activeChannel}
-            // onClick={() => this.changeChannel(user)}
+            onClick={() => this.changeChannel(user)}
             style={{ opacity: 0.7, fontStyle: 'italic' }}
           >
             <Icon

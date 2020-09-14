@@ -3,76 +3,51 @@ import { connect } from 'react-redux';
 import { Segment, Comment } from "semantic-ui-react";
 import firebase from '../../firebase';
 
-import { setUserPosts } from '../../actions';
-
-import MessagesHeader from "./MessagesHeader";
-import MessageForm from "./MessageForm";
-import Message from "./Message";
-import Typing from './Typing';
+// import Typing from './Typing';
 import Skeleton from './Skeleton';
 
 class Messages extends React.Component {
   state = {
-    connectedRef: firebase.database().ref('.info/connected'),
-    channel: this.props.currentChannel,
-    isChannelStarred: false,
-    listeners: [],
-    messagesRef: firebase.database().ref('messages'),
-    messages: [],
-    messagesLoading: true,
-    numUniqueUsers: '',
-    privateChannel: this.props.isPrivateChannel,
-    privateMessagesRef: firebase.database().ref('privateMessages'),
-    searchTerm: '',
-    searchLoading: false,
-    searchResults: [],
-    typingRef: firebase.database().ref('typing'),
-    typingUsers: [],
     user: this.props.currentUser,
-    usersRef: firebase.database().ref('users')
+    channel: this.props.currentChannel
   };
 
   componentDidMount() {
-    const { channel, user, listeners } = this.state;
-
-    if (channel && user) {
-      this.removeListeners(listeners);
-      this.addListeners(channel.id);
-      this.addUserStarsListener(channel.id, user.uid);
-    }
+    this.addListeners();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.messagesEnd) {
-      this.scrollToBottom();
-    }
-  }
+  // use for scroll to bottom effects
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.messagesEnd) {
+  //     this.scrollToBottom();
+  //   }
+  // }
 
-  componentWillUnmount() {
-    this.removeListeners(this.state.listeners);
-    this.state.connectedRef.off();
-  }
+  // componentWillUnmount() {
+  //   this.removeListeners(this.state.listeners);
+  //   this.state.connectedRef.off();
+  // }
 
-  removeListeners = listeners => {
-    listeners.forEach(listener => {
-      listener.ref.child(listener.id).off(listener.event);
-    }) 
-  }
+  // removeListeners = listeners => {
+  //   listeners.forEach(listener => {
+  //     listener.ref.child(listener.id).off(listener.event);
+  //   }) 
+  // }
 
-  addToListeners = (id, ref, event) => {
-    const index = this.state.listeners.findIndex(listener => {
-      return listener.id === id && listener.ref === ref && listener.event === event;
-    })
+  // addToListeners = (id, ref, event) => {
+  //   const index = this.state.listeners.findIndex(listener => {
+  //     return listener.id === id && listener.ref === ref && listener.event === event;
+  //   })
 
-    if (index === -1) {
-      const newListener = { id, ref, event };
-      this.setState({ listeners: this.state.listeners.concat(newListener) });
-    }
-  }
+  //   if (index === -1) {
+  //     const newListener = { id, ref, event };
+  //     this.setState({ listeners: this.state.listeners.concat(newListener) });
+  //   }
+  // }
 
-  scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
-  }
+  // scrollToBottom = () => {
+  //   this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+  // }
 
   addListeners = channelId => {
     this.addMessageListener(channelId);
