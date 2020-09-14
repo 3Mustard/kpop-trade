@@ -6,6 +6,7 @@ import firebase from '../../firebase';
 // import Typing from './Typing';
 import Skeleton from './Skeleton';
 import Message from './Message';
+import MessageForm from './MessageForm';
 
 class Messages extends React.Component {
   state = {
@@ -189,16 +190,15 @@ class Messages extends React.Component {
             {this.displayTypingUsers(typingUsers)}
             <div ref={node => (this.messagesEnd = node)}></div>
           </Comment.Group> */}
-          {this.displayMessages(messages)}
+          <Comment.Group>
+            {this.displayMessages(messages)}
+          </Comment.Group>
         </Segment>
 
-        {/* <MessageForm 
-          messagesRef={messagesRef}
+        <MessageForm 
           currentChannel={channel}
           currentUser={user}
-          isPrivateChannel={privateChannel}
-          getMessagesRef={this.getMessagesRef}
-        /> */}
+        />
       </React.Fragment>
     );
   }
