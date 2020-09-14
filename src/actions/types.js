@@ -10,3 +10,6 @@ export const SET_APP_COMPONENT = 'SET_APP_COMPONENT';
 
 // Trade types
 export const SET_TRADES = 'SET_TRADES';
+
+// Channel types
+export const SET_CURRENT_CHANNEL = 'SET_CURRENT_CHANNEL';
