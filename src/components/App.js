@@ -11,7 +11,7 @@ class App extends React.Component {
 
   render() {
     // Assign values from props
-    const { appComponent, currentUser, primaryColor, secondaryColor } = this.props;
+    const { appComponent, currentUser, primaryColor, secondaryColor, currentChannel } = this.props;
 
     return (
       <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
@@ -42,6 +42,7 @@ class App extends React.Component {
           { appComponent === 'chat' 
             ? <ChatPanel 
                 currentUser={currentUser}
+                currentChannel={currentChannel}
               /> 
             : null 
           }
@@ -55,6 +56,7 @@ const mapStateToProps = state => {
   return {
     appComponent: state.appComponent.component,
     currentUser: state.user.currentUser,
+    currentChannel: state.channel.currentChannel,
     primaryColor: state.colors.primaryColor,
     secondaryColor: state.colors.secondaryColor
   }
