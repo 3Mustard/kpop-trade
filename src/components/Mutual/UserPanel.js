@@ -3,7 +3,7 @@ import firebase from '../../firebase';
 import AvatarEditor from 'react-avatar-editor';
 import { connect } from 'react-redux';
 import { setAppComponent } from '../../actions';
-import { Button, Grid, Header, Icon, Dropdown, Image, Input, Modal } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Icon, Dropdown, Image, Input, Modal } from 'semantic-ui-react';
 import ChatsIndex from '../ChatApp/ChatsIndex';
 
 class UserPanel extends React.Component {
@@ -43,17 +43,6 @@ class UserPanel extends React.Component {
         {
             key: "signout",
             text: <span onClick={this.handleSignout}>Sign Out</span>
-        }
-    ];
-
-    navigationDropDownOptions = () => [
-        {
-            key: "chat",
-            text: <span value='chat'onClick={this.handleChatNavigation}>Go to chat</span>
-        },
-        {
-            key: "trade",
-            text: <span value='trade' onClick={this.handleTradeNavigation}>Browse/Post trades</span>
         }
     ];
 
@@ -156,13 +145,18 @@ class UserPanel extends React.Component {
                                 </span>} 
                                 options={this.userDropDownOptions()} 
                             />
-                            <Dropdown trigger={
-                                <span>
-                                    <Icon style={{ color: 'pink' }} name="heartbeat" />
-                                </span>} 
-                                options={this.navigationDropDownOptions()} 
-                            />
                         </Header>
+                    </Grid.Row>
+
+                    {/* 1:1 CHATS LIST */}
+                    <ChatsIndex currentUser={user} currentChannel={this.props.currentChannel} />
+
+                    <Divider />
+                    <Grid.Row style={{ padding: '1.2em', margin: 0 }}>
+                            <span onClick={this.handleTradeNavigation} className='custom_nav_button'>
+                                <Icon style={{ color: 'pink' }} name="heartbeat" />
+                                Browse Posts
+                            </span>
                     </Grid.Row>
 
                     {/* Change user avatar modal */}
@@ -215,8 +209,6 @@ class UserPanel extends React.Component {
                           </Button>
                       </Modal.Actions>
                     </Modal>
-                    {/* 1:1 CHATS LIST */}
-                    <ChatsIndex currentUser={user} currentChannel={this.props.currentChannel} />
                 </Grid.Column>
             </Grid>
         )

@@ -36,8 +36,7 @@ class App extends React.Component {
               /> 
             : null 
           }
-          {/* ADD TRADE */}
-    
+          
           {/* CHAT PANEL */}
           { appComponent === 'chat' 
             ? <ChatPanel 

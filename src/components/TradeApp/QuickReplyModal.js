@@ -52,8 +52,12 @@ class QuickReplyModal extends Component {
   getUniqueChatId = () => {
     const currentUserId = this.state.user.uid;
     const recipientId = this.state.recipient.id;
-
-    return recipientId < currentUserId ? `${recipientId}-${currentUserId}` : `${currentUserId}-${recipientId}`;
+    
+    if ( currentUserId === recipientId ) {
+      console.log('error, cannot message yourself');
+    } else {
+      return recipientId < currentUserId ? `${recipientId}-${currentUserId}` : `${currentUserId}-${recipientId}`;
+    }
   }
 
   render() {

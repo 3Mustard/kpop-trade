@@ -6,53 +6,19 @@ import QuickReplyModal from './QuickReplyModal';
 
 class Trades extends React.Component {
     state = {
-        trades: [],
-        tradesRef: firebase.database().ref('trades'),
-        tradesLoading: true,
         modal: false,
         user: this.props.currentUser,
         recipient: null
     }
-
-    componentDidMount() {
-        this.addListeners();
-    }
-
-    componentWillUnmount() {
-        this.state.tradesRef.off();
-      }
-
-    addListeners = () => {
-        this.addTradesListener();
-        // add listener for a new trade added or removed
-    }
-
-    // get all trades from database and adds to state
-    addTradesListener = () => {
-        let loadedTrades = [];
-        const { ref } = this.state.tradesRef;
-        ref.on('child_added', snap => {
-        loadedTrades.push(snap.val());
-        this.setState({
-            trades: loadedTrades,
-            tradesLoading: false
-        });
-        });
-        if (loadedTrades.length === 0) {
-            this.setState({ tradesLoading: false });
-        }
-    };
-
+    
     // when a user clicks a trade they want to respond to
     replyToTrade = (recipient) => {
-        console.log(recipient)
         this.openModal();
         this.setRecipient(recipient);
     }
 
     displayTrades = trades => (
         trades.map(trade => (
-            // can add logic here to prevent trades by logged in user from rendering
             <Trade 
                 key={trade.timestamp}
                 details={trade.details}
@@ -81,8 +47,9 @@ class Trades extends React.Component {
     }
 
     render() {
-        const { trades, user, recipient } = this.state;
-
+        const { recipient, user } = this.state;
+        const { trades } = this.props;
+    
         return (
             <React.Fragment>
                 <Segment>
