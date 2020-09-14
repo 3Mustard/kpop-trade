@@ -13,6 +13,7 @@ class ChatsIndex extends React.Component {
     chatsRef: firebase.database().ref('chat'),
     usersRef: firebase.database().ref('users'),
     users: [],
+    filteredUsers: [], // this is an array of users the current user has chats with.
     chatIds: [], // these are the IDs of users the current user has a chat open with. to get the full chat id run getUniqueChatId(recipientsID)
     user: this.props.currentUser
   }
@@ -33,6 +34,7 @@ class ChatsIndex extends React.Component {
         user["status"] = "offline"; // can use status to set listeners on firebase connection. see direct messages component https://github.com/3Mustard/chat-app/blob/master/src/components/SidePanel/DirectMessages.js
         loadedUsers.push(user);
         this.setState({ users: loadedUsers });
+        this.getUsersWithOpenChats();
       }
     });
 
@@ -45,8 +47,8 @@ class ChatsIndex extends React.Component {
       if (id1 === currentUserUid ) { chatIds.push(id2) }
       if (id2 === currentUserUid ) { chatIds.push(id1) }
       this.setState({ chatIds });
+      this.getUsersWithOpenChats();
     });
-
   }
 
   // returns a unique chat id based on sender and recivers ID's
@@ -57,17 +59,22 @@ class ChatsIndex extends React.Component {
     return recipientId < currentUserId ? `${recipientId}-${currentUserId}` : `${currentUserId}-${recipientId}`;
   }
 
-  // returns only the users you have open chats with. 
-  // pass an array of user ids to filter with
-  filterUsers = () => {
-    const { users } = this.state;
-    const userId = this.state.user.uid;
+  // Compares all users.uid with an array of user ids we have open chats with
+  getUsersWithOpenChats = () => {
+    const { users, chatIds } = this.state;
+    let userIds = users.map(user => { return user.uid });
     let filteredUsers = [];
-    
+
+    users.forEach((user) => { chatIds.forEach((chatId) => {
+      if (user.uid === chatId) {
+        filteredUsers.push(user);
+      }
+    })})
+    this.setState({ filteredUsers });
   }
 
   render() {
-    const { users } = this.state;
+    const { filteredUsers } = this.state;
 
     return (
       <Menu.Menu className='menu'>
@@ -75,9 +82,9 @@ class ChatsIndex extends React.Component {
           <span>
             <Icon name='mail' /> DIRECT MESSAGES
           </span>{" "}
-          ({users.length})
+          ({filteredUsers.length})
         </Menu.Item>
-        {users.map(user => (
+        {filteredUsers.map(user => (
           <Menu.Item
             key={user.uid}
             // active={user.uid === activeChannel}
