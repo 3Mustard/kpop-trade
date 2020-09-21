@@ -26,6 +26,7 @@ const FooterMenu = ({ menuItems, styles }) => {
             }}
           >
             <span style={{ fontSize: 20 }}>{item.icon}</span>
+            {styles.showFooterMenuText && item.text}
           </div>
         );
       })}

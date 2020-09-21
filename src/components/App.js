@@ -39,12 +39,16 @@ class App extends React.Component {
 
   render() {
     const { windowWidth } = this.state;
+    const sidebarCollapsed = windowWidth < 1100;
     const styles = {
       white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
       black: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       topBarHeight: 40,
       footerMenuHeight: 50,
-      showFooterMenuText: windowWidth > 500
+      showFooterMenuText: windowWidth > 500,
+      showSidebar: windowWidth > 768,
+      sidebarCollapsed,
+      sidebarWidth: sidebarCollapsed ? 50 : 150
     };
 
     const menuItems = [
@@ -55,6 +59,11 @@ class App extends React.Component {
       { icon: `😛`, text: "Item 5" }
     ];
 
+    if (styles.showSidebar) {
+      menuItems.push({ icon: `😺️`, text: "Profile" });
+      menuItems.push({ icon: `⚙`, text: "Settings" });
+    }
+
     return (
       <div
         style={{
@@ -63,9 +72,17 @@ class App extends React.Component {
           position: "relative"
         }}
       >
-        <TopBar styles={styles} />
+        {styles.showSidebar ? (
+          <Sidebar menuItems={menuItems} styles={styles} />
+        ) : (
+          <TopBar styles={styles} />
+        )}
+
         <Content styles={styles} />
-        <FooterMenu menuItems={menuItems} styles={styles} />
+
+        {!styles.showSidebar && (
+          <FooterMenu menuItems={menuItems} styles={styles} />
+        )}
       </div>
     );
   }
