@@ -7,47 +7,41 @@ import UserPanel from './Mutual/UserPanel';
 import TradePanel from './TradeApp/TradePanel';
 import ChatPanel from './ChatApp/ChatPanel';
 
+import Content from './Layout/Content';
+import TopBar from './Layout/TopBar';
+import FooterMenu from './Layout/FooterMenu';
+
 class App extends React.Component {
 
   render() {
-    // Assign values from props
-    const { appComponent, currentUser, primaryColor, secondaryColor, currentChannel } = this.props;
+    const styles = {
+      white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      black: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+      topBarHeight: 40,
+      footerMenuHeight: 50
+    };
+
+    const menuItems = [
+      { icon: `😀`, text: "Item 1" },
+      { icon: `😉`, text: "Item 2" },
+      { icon: `😎`, text: "Item 3" },
+      { icon: `🤔`, text: "Item 4" },
+      { icon: `😛`, text: "Item 5" }
+    ];
 
     return (
-      <Grid columns="equal" className="app" style={{ background: secondaryColor }}>
-    
-        <Menu
-          size="large"
-          inverted
-          fixed="left"
-          vertical
-          style={{ background: primaryColor, fontSize: '1.2rem'}}
-        >
-          {/* USER PANEL */}
-          <UserPanel primaryColor={primaryColor} currentUser={currentUser} currentChannel={currentChannel} />
-
-        </Menu>
-
-      <Grid.Column style={{ marginLeft: 320 }}>
-          {/* TRADE PANEL */}
-          { appComponent === 'trade' 
-            ? <TradePanel 
-                currentUser={currentUser}
-              /> 
-            : null 
-          }
-          
-          {/* CHAT PANEL */}
-          { appComponent === 'chat' 
-            ? <ChatPanel 
-                currentUser={currentUser}
-                currentChannel={currentChannel}
-              /> 
-            : null 
-          }
-      </Grid.Column>
-  </Grid> 
-    )
+      <div
+        style={{
+          backgroundColor: styles.black(0.05),
+          minHeight: "100vh",
+          position: "relative"
+        }}
+      >
+        <TopBar styles={styles} />
+        <Content styles={styles} />
+        <FooterMenu menuItems={menuItems} styles={styles} />
+      </div>
+    );
   }
 }
 
