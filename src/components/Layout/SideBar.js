@@ -35,7 +35,7 @@ const Sidebar = ({ menuItems, styles }) => {
       <div style={logoStyle}>{styles.sidebarCollapsed ? "A" : "App"}</div>
       {menuItems.map((item, i) => (
         <div key={i} style={menuItemStyle}>
-          <span style={iconStyle}>{item.icon}</span>
+          <span style={iconStyle} onClick={item.handleClick}>{item.icon}</span>
           {!styles.sidebarCollapsed && item.text}
         </div>
       ))}

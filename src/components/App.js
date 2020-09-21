@@ -17,7 +17,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       windowWidth: 0,
-      windowHeight: 0
+      windowHeight: 0,
+      appComponent: ''
     };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
@@ -38,8 +39,13 @@ class App extends React.Component {
     this.setState({ windowWidth, windowHeight });
   }
 
+  handleMenuItemClick = (e) => {
+    console.log(e);
+  }
+
   render() {
     const { windowWidth } = this.state;
+    const { appComponent, currentUser } = this.props;
     const sidebarCollapsed = windowWidth < 1100;
     const styles = {
       white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -53,11 +59,9 @@ class App extends React.Component {
     };
 
     const menuItems = [
-      { icon: `😀`, text: "Item 1" },
-      { icon: `😉`, text: "Item 2" },
-      { icon: `😎`, text: "Item 3" },
-      { icon: `🤔`, text: "Item 4" },
-      { icon: `😛`, text: "Item 5" }
+      { icon: `😀`, text: "Add Post", handleClick: () => this.setState({ component: 'ADD_TRADE'})},
+      { icon: `😉`, text: "View Posts", handleClick: () => this.setState({ component: 'VIEW_TRADES'})},
+      { icon: `😎`, text: "Chat", handleClick: () => this.setState({ component: 'CHAT'})}
     ];
 
     if (styles.showSidebar) {
@@ -79,7 +83,7 @@ class App extends React.Component {
           <TopBar styles={styles} />
         )}
 
-        <Content styles={styles} />
+        <Content styles={styles} appComponent={appComponent} currentUser={currentUser}/>
 
         {!styles.showSidebar && (
           <FooterMenu menuItems={menuItems} styles={styles} />
