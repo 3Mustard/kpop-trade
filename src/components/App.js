@@ -10,6 +10,7 @@ import ChatPanel from './ChatApp/ChatPanel';
 import Content from './Layout/Content';
 import TopBar from './Layout/TopBar';
 import FooterMenu from './Layout/FooterMenu';
+import SideBar from './Layout/SideBar';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class App extends React.Component {
         }}
       >
         {styles.showSidebar ? (
-          <Sidebar menuItems={menuItems} styles={styles} />
+          <SideBar menuItems={menuItems} styles={styles} />
         ) : (
           <TopBar styles={styles} />
         )}
