@@ -80,7 +80,7 @@ class App extends React.Component {
         {styles.showSidebar ? (
           <SideBar menuItems={menuItems} styles={styles} />
         ) : (
-          <TopBar styles={styles} />
+          <TopBar styles={styles} logout={this.handleSignout}/>
         )}
 
         <Content styles={styles} appComponent={appComponent} currentUser={currentUser}/>
