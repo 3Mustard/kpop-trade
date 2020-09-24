@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from 'semantic-ui-react';
 
 const FooterMenu = ({ menuItems, styles }) => {
   return (
@@ -25,7 +26,7 @@ const FooterMenu = ({ menuItems, styles }) => {
               flex: 1
             }}
           >
-            <span style={{ fontSize: 20 }}>{item.icon}</span>
+            <span style={{ fontSize: 20 }}><Icon name={item.icon}/></span>
             {styles.showFooterMenuText && item.text}
           </div>
         );

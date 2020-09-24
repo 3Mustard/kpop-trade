@@ -47,18 +47,18 @@ class App extends React.Component {
       showSidebar: windowWidth > 768,
       sidebarCollapsed,
       sidebarWidth: sidebarCollapsed ? 50 : 150,
-      tradeItemsPerRow:  windowWidth > 768 ? 3 : 1
+      tradeItemsPerRow:  windowWidth > 500 ? 4 : 1
     };
 
     const menuItems = [
-      { icon: `😀`, text: "Add Post", handleClick: () => this.setState({ appComponent: 'ADD_TRADE'})},
-      { icon: `😉`, text: "View Posts", handleClick: () => this.setState({ appComponent: 'VIEW_TRADES'})},
-      { icon: `😎`, text: "Chat", handleClick: () => this.setState({ appComponent: 'CHAT'})}
+      { icon: `add`, text: "Add Post", handleClick: () => this.setState({ appComponent: 'ADD_TRADE'})},
+      { icon: `list`, text: "View Posts", handleClick: () => this.setState({ appComponent: 'VIEW_TRADES'})},
+      { icon: `wechat`, text: "Chat", handleClick: () => this.setState({ appComponent: 'CHAT'})}
     ];
 
     if (styles.showSidebar) {
-      menuItems.push({ icon: `😺️`, text: "Profile" });
-      menuItems.push({ icon: `⚙`, text: "Settings" });
+      menuItems.push({ icon: `user`, text: "Profile" });
+      menuItems.push({ icon: `settings`, text: "Settings" });
     }
 
     return (

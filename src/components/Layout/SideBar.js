@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from 'semantic-ui-react';
 
 const Sidebar = ({ menuItems, styles }) => {
   const sidebarStyle = {
@@ -35,7 +36,7 @@ const Sidebar = ({ menuItems, styles }) => {
       <div style={logoStyle}>{styles.sidebarCollapsed ? "A" : "App"}</div>
       {menuItems.map((item, i) => (
         <div key={i} style={menuItemStyle}>
-          <span style={iconStyle} onClick={item.handleClick}>{item.icon}</span>
+          <span style={iconStyle} onClick={item.handleClick}><Icon name={item.icon}/></span>
           {!styles.sidebarCollapsed && item.text}
         </div>
       ))}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from 'semantic-ui-react';
 
 const TopBar = ({ styles }) => {
   const topBarStyle = {
@@ -18,9 +19,9 @@ const TopBar = ({ styles }) => {
 
   return (
     <div style={topBarStyle}>
-      <span>{`😺️`}</span>
+      <span><Icon name='user'/></span>
       App
-      <span>{`⚙️`}</span>
+      <span><Icon name='settings'/></span>
     </div>
   );
 };
