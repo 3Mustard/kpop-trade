@@ -14,7 +14,8 @@ const TopBar = ({ styles, logout }) => {
     borderBottom: `1px solid ${styles.black(0.1)}`,
     fontWeight: "bold",
     padding: "0px 20px",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    zIndex: 1
   };
 
   return (
