@@ -47,7 +47,9 @@ class Trades extends React.Component {
             //         trades: loadedTrades
             //     });
             // }
-            loadedTrades.push(snap.val());
+            let trade= snap.val()
+            trade['id'] = snap.key;
+            loadedTrades.push(trade);
             this.setState({
                 trades: loadedTrades
             })
@@ -55,7 +57,6 @@ class Trades extends React.Component {
         if (loadedTrades.length === 0) {
             this.setState({ tradesLoading: false });
         }
-        console.log(loadedTrades[0])
     };
     
     // when a user clicks a trade they want to respond to
@@ -68,6 +69,7 @@ class Trades extends React.Component {
     displayTrades = trades => (
         trades.map(trade => (
            <Trade 
+                id={trade.id}
                 key={trade.timestamp} 
                 style={{ marginBottom: 40 }}
                 details={trade.details} 
@@ -75,14 +77,9 @@ class Trades extends React.Component {
                 user={trade.user} 
                 replyToTrade={this.replyToTrade}
                 currentUser={this.state.user}
-                handleDelete={this.deleteTrade}
             />
         ))
     )
-
-    deleteTrade = id => {
-        console.log('deleting trade', id);
-    }
 
     // Modal controls 
     openModal = () => this.setState({ modal: true });
@@ -105,7 +102,7 @@ class Trades extends React.Component {
     render() {
         const { recipient, user, trades } = this.state;
         const { itemsPerRow } = this.props;
-
+        console.log(trades)
         return (
             <React.Fragment>
                 <Segment>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import DeleteTrade from './DeleteTrade';
 
-const Trade = ({ details, image, user, replyToTrade, currentUser, handleDelete }) => (
+const Trade = ({ details, image, user, replyToTrade, currentUser, handleDelete, id }) => (
   <Card>
     <Image src={image} wrapped ui={false} />
     <Card.Content>
@@ -21,7 +21,7 @@ const Trade = ({ details, image, user, replyToTrade, currentUser, handleDelete }
         posted by: {user.id === currentUser.uid ? 'You' : user.name} 
       </a>
       <a style={{float: 'right'}}>
-        {user.id === currentUser.uid ? <DeleteTrade handleDelete={handleDelete}/> : null}
+        {user.id === currentUser.uid ? <DeleteTrade id={id}/> : null}
       </a>
     </Card.Content>
   </Card>
