@@ -3,16 +3,15 @@ This app is still in development
 
 ## AppFeatures 
 * GLOBAL
--login/signup/auth
+-login/logout/signup/auth
 * CHAT
--Join/favorite chat channels
--send image/text messages
+-send text messages
 -send direct messages between users
--notifications
--emoji
--upload new avatar image
 * TRADE
--coming soon post/respond to user trade offers
+-post new trades
+-browse all trades
+-delete trades you have posted
+-quick reply to users trades 
 
 ## Purpose
 -Learn and create 
