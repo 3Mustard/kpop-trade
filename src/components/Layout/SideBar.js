@@ -11,6 +11,8 @@ const Sidebar = ({ menuItems, styles }) => {
   };
 
   const menuItemStyle = {
+    marginBottom: 20,
+    cursor: 'pointer',
     display: "flex",
     justifyContent: styles.sidebarCollapsed ? "center" : "flex-start",
     alignItems: "center",
@@ -35,8 +37,8 @@ const Sidebar = ({ menuItems, styles }) => {
     <div style={sidebarStyle}>
       <div style={logoStyle}>{styles.sidebarCollapsed ? "A" : "App"}</div>
       {menuItems.map((item, i) => (
-        <div key={i} style={menuItemStyle}>
-          <span style={iconStyle} onClick={item.handleClick}><Icon name={item.icon}/></span>
+        <div key={i} style={menuItemStyle} onClick={item.handleClick}>
+          <span style={iconStyle}><Icon name={item.icon}/></span>
           {!styles.sidebarCollapsed && item.text}
         </div>
       ))}
