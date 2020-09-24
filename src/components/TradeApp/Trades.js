@@ -25,7 +25,7 @@ class Trades extends React.Component {
 
     addListeners = () => {
     this.addTradesListener();
-    // add listener for a new trade added or removed
+    // listener for a new trade added or removed is required 
     }
 
     // get all trades from database except ones the current user has posted.

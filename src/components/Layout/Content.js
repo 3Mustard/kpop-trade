@@ -16,7 +16,7 @@ class Content extends React.Component {
       case 'VIEW_TRADES':
         return <Trades currentUser={user} itemsPerRow={styles.tradeItemsPerRow}/>;
       default: 
-        return 'default';
+        return 'coming soon';
     } 
   }
 
