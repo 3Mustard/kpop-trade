@@ -46,7 +46,8 @@ class App extends React.Component {
       showFooterMenuText: windowWidth > 500,
       showSidebar: windowWidth > 768,
       sidebarCollapsed,
-      sidebarWidth: sidebarCollapsed ? 50 : 150
+      sidebarWidth: sidebarCollapsed ? 50 : 150,
+      tradeItemsPerRow:  windowWidth > 768 ? 3 : 1
     };
 
     const menuItems = [

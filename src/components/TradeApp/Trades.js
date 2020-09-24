@@ -58,6 +58,7 @@ class Trades extends React.Component {
         this.setRecipient(recipient);
     }
 
+    // Map a Trade component to each trade
     displayTrades = trades => (
         trades.map(trade => (
            <Trade key={trade.timestamp} style={{ marginBottom: 40 }}
@@ -66,7 +67,8 @@ class Trades extends React.Component {
         ))
     )
 
-    openModal = (id) => this.setState({ modal: true });
+    // Modal controls 
+    openModal = () => this.setState({ modal: true });
     closeModal = () => this.setState({ modal: false });
 
     // Store user who will be recieving message
@@ -85,7 +87,8 @@ class Trades extends React.Component {
 
     render() {
         const { recipient, user, trades, usersTrades } = this.state;
-        console.log(trades, usersTrades)
+        const { itemsPerRow } = this.props;
+
         return (
             <React.Fragment>
                 <Segment>
@@ -108,7 +111,7 @@ class Trades extends React.Component {
 
                 {/* TRADE CARDS */}
                 {/* ITEMS PER ROW MUST CHANGE FOR MOBILE */}
-                <Card.Group itemsPerRow={6}> 
+                <Card.Group itemsPerRow={itemsPerRow}> 
                     {trades.length > 0 ? this.displayTrades(trades) : null}
                 </Card.Group>
                 </Segment>

@@ -8,13 +8,13 @@ class Content extends React.Component {
     user: this.props.currentUser,
   }
 
-  getContent = (request) => {
+  getContent = (request, styles) => {
     const { user } = this.state;
     switch(request) {
       case 'ADD_TRADE':
         return <TradeForm currentUser={user} />;
       case 'VIEW_TRADES':
-        return <Trades currentUser={user} />;
+        return <Trades currentUser={user} itemsPerRow={styles.tradeItemsPerRow}/>;
       default: 
         return 'default';
     } 
@@ -28,7 +28,7 @@ class Content extends React.Component {
       paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
       paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20
     };
-    const appContent = this.getContent(appComponent);
+    const appContent = this.getContent(appComponent, styles);
 
     return (
       <div style={contentStyle}>{appContent}</div>
