@@ -15,7 +15,6 @@ class UserPanel extends React.Component {
         uploadededCroppedImage: '',
         user: this.props.currentUser,
         modal: false,
-        modal2: false,
         storageRef: firebase.storage().ref(),
         // alt way of getting a user
         userRef: firebase.auth().currentUser,
@@ -27,8 +26,7 @@ class UserPanel extends React.Component {
 
     openModal = () => this.setState({ modal:true });
     closeModal = () => this.setState({ modal: false });
-    openModal2 = () => this.setState({ modal2:true });
-    closeModal2 = () => this.setState({ modal2: false });
+  
 
     userDropDownOptions = () => [
         {
@@ -46,13 +44,6 @@ class UserPanel extends React.Component {
         }
     ];
 
-    handleChatNavigation = () => {
-        this.props.setAppComponent('chat');
-    }
-
-    handleTradeNavigation = () => {
-        this.props.setAppComponent('trade');
-    }
 
     uploadCroppedImage = () => {
         const { storageRef, userRef, blob, metadata } = this.state;

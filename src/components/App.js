@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import firebase from '../firebase';
 // import "./App.css";
 
 import Content from './Layout/Content';
@@ -34,6 +35,13 @@ class App extends React.Component {
     this.setState({ windowWidth, windowHeight });
   }
 
+  handleSignout = () => {
+        firebase    
+            .auth()
+            .signOut()
+            .then(() => console.log('signed out!'))
+  }
+
   render() {
     const { windowWidth, appComponent } = this.state;
     const { currentUser } = this.props;
@@ -58,7 +66,7 @@ class App extends React.Component {
 
     if (styles.showSidebar) {
       menuItems.push({ icon: `user`, text: "Profile" });
-      menuItems.push({ icon: `settings`, text: "Settings" });
+      menuItems.push({ icon: `log out`, text: "Log out", handleClick: () => this.handleSignout() });
     }
 
     return (

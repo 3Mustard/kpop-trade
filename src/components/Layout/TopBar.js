@@ -21,7 +21,7 @@ const TopBar = ({ styles }) => {
     <div style={topBarStyle}>
       <span><Icon name='user'/></span>
       App
-      <span><Icon name='settings'/></span>
+      <span><Icon name='log out'/></span>
     </div>
   );
 };
