@@ -1,11 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { Grid, Menu } from 'semantic-ui-react';
-import "./App.css";
-
-import UserPanel from './Mutual/UserPanel';
-import TradePanel from './TradeApp/TradePanel';
-import ChatPanel from './ChatApp/ChatPanel';
+// import "./App.css";
 
 import Content from './Layout/Content';
 import TopBar from './Layout/TopBar';
@@ -39,13 +34,9 @@ class App extends React.Component {
     this.setState({ windowWidth, windowHeight });
   }
 
-  handleMenuItemClick = (e) => {
-    console.log(e);
-  }
-
   render() {
-    const { windowWidth } = this.state;
-    const { appComponent, currentUser } = this.props;
+    const { windowWidth, appComponent } = this.state;
+    const { currentUser } = this.props;
     const sidebarCollapsed = windowWidth < 1100;
     const styles = {
       white: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -59,9 +50,9 @@ class App extends React.Component {
     };
 
     const menuItems = [
-      { icon: `😀`, text: "Add Post", handleClick: () => this.setState({ component: 'ADD_TRADE'})},
-      { icon: `😉`, text: "View Posts", handleClick: () => this.setState({ component: 'VIEW_TRADES'})},
-      { icon: `😎`, text: "Chat", handleClick: () => this.setState({ component: 'CHAT'})}
+      { icon: `😀`, text: "Add Post", handleClick: () => this.setState({ appComponent: 'ADD_TRADE'})},
+      { icon: `😉`, text: "View Posts", handleClick: () => this.setState({ appComponent: 'VIEW_TRADES'})},
+      { icon: `😎`, text: "Chat", handleClick: () => this.setState({ appComponent: 'CHAT'})}
     ];
 
     if (styles.showSidebar) {
@@ -95,7 +86,6 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    appComponent: state.appComponent.component,
     currentUser: state.user.currentUser,
     currentChannel: state.channel.currentChannel,
     primaryColor: state.colors.primaryColor,

@@ -1,33 +1,43 @@
 import React from "react";
+import TradeForm from '../TradeApp/TradeForm';
 
-const Content = ({ styles }) => {
-  const dummyPost = {
-    title: `Here's a blog post title`,
-    summary:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  };
+class Content extends React.Component {
 
-  const posts = Array(20).fill(dummyPost);
+  getContent = (request) => {
+    switch(request) {
+      case 'ADD_TRADE':
+        return <TradeForm currentUser={this.props.currentUser}/>;
+      case 'VIEW_TRADES':
+        return 'view trades';
+      default: 
+        return 'default';
+    } 
+  }
 
-  const contentStyle = {
-    paddingTop: styles.showSidebar ? 20 : styles.topBarHeight + 20,
-    paddingRight: 20,
-    paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
-    paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20
-};
+  render() {
+    const { styles, appComponent } = this.props
+    const contentStyle = {
+      paddingTop: styles.showSidebar ? 20 : styles.topBarHeight + 20,
+      paddingRight: 20,
+      paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
+      paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20
+    };
+    const appContent = this.getContent('ADD_TRADE');
 
-  return (
-    <div style={contentStyle}>
-      {posts.map((post, i) => {
-        return (
-          <div key={i} style={{ marginBottom: 40 }}>
-            <h2 style={{ marginBottom: 0 }}>{post.title}</h2>
-            <p>{post.summary}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+    return (
+      // <div style={contentStyle}>
+      //   {posts.map((post, i) => {
+      //     return (
+      //       <div key={i} style={{ marginBottom: 40 }}>
+      //         <h2 style={{ marginBottom: 0 }}>{post.title}</h2>
+      //         <p>{post.summary}</p>
+      //       </div>
+      //     );
+      //   })}
+      // </div>
+      <div style={contentStyle}>{appContent}</div>
+    )
+  }
+}
 
 export default Content;
