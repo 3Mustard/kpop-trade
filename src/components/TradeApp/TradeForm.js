@@ -59,6 +59,7 @@ class TradeForm extends React.Component {
       this.addTrade(newTrade);
     }
     // may need clean up function
+    this.props.changeContent('VIEW_TRADES');
   };
 
   // check if form is filled out

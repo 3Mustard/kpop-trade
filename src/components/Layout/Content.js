@@ -9,9 +9,10 @@ class Content extends React.Component {
 
   getContent = (request, styles) => {
     const { user } = this.state;
+    const { changeContent } = this.props;
     switch(request) {
       case 'ADD_TRADE':
-        return <TradeForm currentUser={user} />;
+        return <TradeForm currentUser={user} changeContent={changeContent}/>;
       case 'VIEW_TRADES':
         return <Trades currentUser={user} itemsPerRow={styles.tradeItemsPerRow}/>;
       default: 

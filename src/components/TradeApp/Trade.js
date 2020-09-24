@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
+import DeleteTrade from './DeleteTrade';
 
-const Trade = ({ details, image, user, replyToTrade }) => (
+const Trade = ({ details, image, user, replyToTrade, currentUser, handleDelete }) => (
   <Card>
     <Image src={image} wrapped ui={false} />
     <Card.Content>
@@ -17,7 +18,10 @@ const Trade = ({ details, image, user, replyToTrade }) => (
       <a onClick={() => replyToTrade(user)}>
         <Icon name='user' />
         {/* this should be a component to open a direct message between current user and the user who posted this. */}
-        posted by: {user.name} 
+        posted by: {user.id === currentUser.uid ? 'You' : user.name} 
+      </a>
+      <a style={{float: 'right'}}>
+        {user.id === currentUser.uid ? <DeleteTrade handleDelete={handleDelete}/> : null}
       </a>
     </Card.Content>
   </Card>

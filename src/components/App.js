@@ -42,6 +42,10 @@ class App extends React.Component {
             .then(() => console.log('signed out!'))
   }
 
+  handleChangeContent = (request) => {
+    this.setState({ appComponent: request })
+  }
+
   render() {
     const { windowWidth, appComponent } = this.state;
     const { currentUser } = this.props;
@@ -83,7 +87,7 @@ class App extends React.Component {
           <TopBar styles={styles} logout={this.handleSignout}/>
         )}
 
-        <Content styles={styles} appComponent={appComponent} currentUser={currentUser}/>
+        <Content styles={styles} appComponent={appComponent} currentUser={currentUser} changeContent={this.handleChangeContent}/>
 
         {!styles.showSidebar && (
           <FooterMenu menuItems={menuItems} styles={styles} />

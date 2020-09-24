@@ -35,21 +35,27 @@ class Trades extends React.Component {
 
         const { ref } = this.state.tradesRef;
         ref.on('child_added', snap => {
-            if (snap.val().user.id === this.state.user.uid) {
-                loadedUsersTrades.push(snap.val());
-                this.setState({
-                    usersTrades: loadedUsersTrades
-                });
-            } else {
+            // activate this to differentiate trades belonging to logged in user
+            // if (snap.val().user.id === this.state.user.uid) {
+            //     loadedUsersTrades.push(snap.val());
+            //     this.setState({
+            //         usersTrades: loadedUsersTrades
+            //     });
+            // } else {
+            // loadedTrades.push(snap.val());
+            //     this.setState({
+            //         trades: loadedTrades
+            //     });
+            // }
             loadedTrades.push(snap.val());
-                this.setState({
-                    trades: loadedTrades
-                });
-            }
+            this.setState({
+                trades: loadedTrades
+            })
         });
         if (loadedTrades.length === 0) {
             this.setState({ tradesLoading: false });
         }
+        console.log(loadedTrades[0])
     };
     
     // when a user clicks a trade they want to respond to
@@ -61,11 +67,22 @@ class Trades extends React.Component {
     // Map a Trade component to each trade
     displayTrades = trades => (
         trades.map(trade => (
-           <Trade key={trade.timestamp} style={{ marginBottom: 40 }}
-            details={trade.details} image={trade.image} user={trade.user} replyToTrade={this.replyToTrade}
+           <Trade 
+                key={trade.timestamp} 
+                style={{ marginBottom: 40 }}
+                details={trade.details} 
+                image={trade.image} 
+                user={trade.user} 
+                replyToTrade={this.replyToTrade}
+                currentUser={this.state.user}
+                handleDelete={this.deleteTrade}
             />
         ))
     )
+
+    deleteTrade = id => {
+        console.log('deleting trade', id);
+    }
 
     // Modal controls 
     openModal = () => this.setState({ modal: true });
