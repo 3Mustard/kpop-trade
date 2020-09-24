@@ -1,7 +1,6 @@
 import React from "react";
 import TradeForm from '../TradeApp/TradeForm';
 import Trades from '../TradeApp/Trades';
-import firebase from '../../firebase';
 
 class Content extends React.Component {
   state = {

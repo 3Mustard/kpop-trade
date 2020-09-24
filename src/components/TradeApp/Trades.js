@@ -86,7 +86,7 @@ class Trades extends React.Component {
     }
 
     render() {
-        const { recipient, user, trades, usersTrades } = this.state;
+        const { recipient, user, trades } = this.state;
         const { itemsPerRow } = this.props;
 
         return (

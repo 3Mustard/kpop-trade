@@ -1,7 +1,4 @@
-// form for sending a message from trades component
-
 import React, { Component } from 'react'
-import uuidv4 from 'uuid/v4';
 import firebase from '../../firebase';
 import { Form } from 'semantic-ui-react'
 
@@ -39,7 +36,7 @@ class QuickReplyModal extends Component {
 
   // Pushed a new message node to the appropriate chat channel
   sendReply = () => {
-    const { content, recipient, user, chatsRef, usersRef } = this.state;
+    const { chatsRef } = this.state;
     const chatId = this.getUniqueChatId();
 
     chatsRef
