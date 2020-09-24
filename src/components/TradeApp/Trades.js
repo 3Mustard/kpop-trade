@@ -60,10 +60,9 @@ class Trades extends React.Component {
 
     displayTrades = trades => (
         trades.map(trade => (
-            <div key={trade.timestamp} style={{ marginBottom: 40 }}>
-                <h2 style={{ marginBottom: 0 }}>{trade.details.idol}</h2>
-                <p>{trade.details.content}</p>
-            </div>
+           <Trade key={trade.timestamp} style={{ marginBottom: 40 }}
+            details={trade.details} image={trade.image} user={trade.user} replyToTrade={this.replyToTrade}
+            />
         ))
     )
 
@@ -88,7 +87,32 @@ class Trades extends React.Component {
         const { recipient, user, trades, usersTrades } = this.state;
         console.log(trades, usersTrades)
         return (
-            <p>trades</p>
+            <React.Fragment>
+                <Segment>
+                    {/* MODAL */}
+                    <Modal
+                        open={this.state.modal}
+                        onClose={this.closeModal}
+                        closeIcon
+                    >
+                        <Modal.Header>Reply to Posting</Modal.Header>
+                        <Modal.Content>
+                            {/* QUICK REPLAY COMPONENT */}
+                        <QuickReplyModal 
+                            handleClose={this.closeModal} 
+                            recipient={recipient} currentUser={user} 
+                            resetAfterSubmit={this.resetAfterSubmit}
+                        />
+                        </Modal.Content>
+                    </Modal> 
+
+                {/* TRADE CARDS */}
+                {/* ITEMS PER ROW MUST CHANGE FOR MOBILE */}
+                <Card.Group itemsPerRow={6}> 
+                    {trades.length > 0 ? this.displayTrades(trades) : null}
+                </Card.Group>
+                </Segment>
+            </React.Fragment>
         )
     }
 

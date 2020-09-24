@@ -28,7 +28,7 @@ class Content extends React.Component {
       paddingBottom: styles.showSidebar ? 20 : styles.footerMenuHeight + 20,
       paddingLeft: styles.showSidebar ? styles.sidebarWidth + 20 : 20
     };
-    const appContent = this.getContent('VIEW_TRADES');
+    const appContent = this.getContent(appComponent);
 
     return (
       <div style={contentStyle}>{appContent}</div>
