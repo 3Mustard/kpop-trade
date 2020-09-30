@@ -1,20 +1,21 @@
 import React from "react";
 import TradeForm from '../TradeApp/TradeForm';
 import Trades from '../TradeApp/Trades';
+import ChatsIndex from '../ChatApp/ChatsIndex';
+import ChatPanel from '../ChatApp/ChatPanel';
 
 class Content extends React.Component {
-  state = {
-    user: this.props.currentUser,
-  }
-
   getContent = (request, styles) => {
-    const { user } = this.state;
-    const { changeContent } = this.props;
+    const { changeContent, changeChannel, currentUser, chatChannel } = this.props;
     switch(request) {
       case 'ADD_TRADE':
-        return <TradeForm currentUser={user} changeContent={changeContent}/>;
+        return <TradeForm currentUser={currentUser} changeContent={changeContent}/>;
       case 'VIEW_TRADES':
-        return <Trades currentUser={user} itemsPerRow={styles.tradeItemsPerRow}/>;
+        return <Trades currentUser={currentUser} itemsPerRow={styles.tradeItemsPerRow}/>;
+      case 'CHAT_INDEX':
+        return <ChatsIndex currentUser={currentUser} changeContent={changeContent} changeChannel={changeChannel}/>;
+      case 'CHAT':
+        return <ChatPanel currentUser={currentUser} currentChannel={chatChannel}/>
       default: 
         return 'coming soon';
     } 

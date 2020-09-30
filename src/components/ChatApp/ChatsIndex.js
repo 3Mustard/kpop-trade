@@ -6,13 +6,10 @@
 
 import React from 'react';
 import firebase from '../../firebase';
-import { connect } from 'react-redux';
 import { Icon, Menu } from 'semantic-ui-react';
-import { setCurrentChannel, setAppComponent } from '../../actions';
 
 class ChatsIndex extends React.Component {
   state = {
-    currentChannel: this.props.currentChannel,
     chatsRef: firebase.database().ref('chat'),
     usersRef: firebase.database().ref('users'),
     users: [],
@@ -74,7 +71,6 @@ class ChatsIndex extends React.Component {
   // Compares all users.uid with an array of user ids we have open chats with
   getUsersWithOpenChats = () => {
     const { users, chatIds } = this.state;
-    let userIds = users.map(user => { return user.uid });
     let filteredUsers = [];
 
     users.forEach((user) => { chatIds.forEach((chatId) => {
@@ -88,12 +84,12 @@ class ChatsIndex extends React.Component {
   // obtains unique chat id and sends it to action/reducer
   changeChannel = user => {
     const channel = this.getUniqueChatId(user);
-    this.props.setCurrentChannel(channel);
-    this.props.setAppComponent('chat');
+    this.props.changeChannel(channel); // needs to be global state
+    this.props.changeContent('CHAT');
   }
 
   render() {
-    const { filteredUsers, currentChannel } = this.state;
+    const { filteredUsers } = this.state;
 
     return (
       <Menu.Menu className='menu'>
@@ -106,7 +102,6 @@ class ChatsIndex extends React.Component {
         {filteredUsers.map(user => (
           <Menu.Item
             key={user.uid}
-            active={this.getUniqueChatId(user) === currentChannel}
             onClick={() => this.changeChannel(user)}
             style={{ opacity: 0.7, fontStyle: 'italic' }}
           >
@@ -123,7 +118,4 @@ class ChatsIndex extends React.Component {
 
 }
 
-export default connect(
-  null,
-  { setCurrentChannel, setAppComponent }
-)(ChatsIndex);
+export default ChatsIndex;

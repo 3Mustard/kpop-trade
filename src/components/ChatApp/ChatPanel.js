@@ -17,7 +17,7 @@ class Messages extends React.Component {
   };
 
   componentDidMount() {
-    this.addListeners(this.state.channel);
+    this.addListeners();
   }
 
   // use for scroll to bottom effects
@@ -53,21 +53,23 @@ class Messages extends React.Component {
   //   this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
   // }
 
-  addListeners = channel => {
-    this.addMessageListener(channel);
+  addListeners = () => {
+    this.addMessageListener();
     // this.addTypingListeners(channelId);
   };
 
   // listen to children added to the channel id. Channel id will be set from the userpanel/chatsindex list of open chats. 
-  addMessageListener = channelId => {
+  addMessageListener = () => {
     let loadedMessages = [];
-    this.state.chatsRef.child(channelId).on('child_added', snap => {
-      loadedMessages.push(snap.val());
-      this.setState({
-        messages: loadedMessages
-        // messagesLoading: false
+    if (this.state.channel !== '') {
+      this.state.chatsRef.child(this.state.channel).on('child_added', snap => {
+        loadedMessages.push(snap.val());
+        this.setState({
+          messages: loadedMessages
+          // messagesLoading: false
+        });
       });
-    });
+    }
     if (loadedMessages.length === 0) {
       // this.setState({ messagesLoading: false })
       console.log('no msgs');

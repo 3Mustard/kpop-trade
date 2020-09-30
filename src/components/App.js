@@ -14,7 +14,8 @@ class App extends React.Component {
     this.state = {
       windowWidth: 0,
       windowHeight: 0,
-      appComponent: ''
+      appComponent: '',
+      chatChannel: ''
     };
     this.updateDimensions = this.updateDimensions.bind(this);
   }
@@ -42,12 +43,16 @@ class App extends React.Component {
             .then(() => console.log('signed out!'))
   }
 
+  handleChangeChannel = (uid) => {
+    this.setState({ chatChannel: uid });
+  }
+
   handleChangeContent = (request) => {
-    this.setState({ appComponent: request })
+    this.setState({ appComponent: request });
   }
 
   render() {
-    const { windowWidth, appComponent } = this.state;
+    const { windowWidth, appComponent, chatChannel } = this.state;
     const { currentUser } = this.props;
     const sidebarCollapsed = windowWidth < 1100;
     const styles = {
@@ -65,7 +70,7 @@ class App extends React.Component {
     const menuItems = [
       { icon: `add`, text: "Add Post", handleClick: () => this.setState({ appComponent: 'ADD_TRADE'})},
       { icon: `list`, text: "View Posts", handleClick: () => this.setState({ appComponent: 'VIEW_TRADES'})},
-      { icon: `wechat`, text: "Chat", handleClick: () => this.setState({ appComponent: 'CHAT'})}
+      { icon: `wechat`, text: "Chat", handleClick: () => this.setState({ appComponent: 'CHAT_INDEX'})}
     ];
 
     if (styles.showSidebar) {
@@ -87,7 +92,7 @@ class App extends React.Component {
           <TopBar styles={styles} logout={this.handleSignout}/>
         )}
 
-        <Content styles={styles} appComponent={appComponent} currentUser={currentUser} changeContent={this.handleChangeContent}/>
+        <Content styles={styles} appComponent={appComponent} chatChannel={chatChannel} currentUser={currentUser} changeContent={this.handleChangeContent} changeChannel={this.handleChangeChannel}/>
 
         {!styles.showSidebar && (
           <FooterMenu menuItems={menuItems} styles={styles} />
