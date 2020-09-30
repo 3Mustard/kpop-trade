@@ -35,7 +35,7 @@ const Sidebar = ({ menuItems, styles }) => {
 
   return (
     <div style={sidebarStyle}>
-      <div style={logoStyle}>{styles.sidebarCollapsed ? "A" : "App"}</div>
+      <div style={logoStyle}>{styles.sidebarCollapsed ? "KT" : "Kpop-Trade"}</div>
       {menuItems.map((item, i) => (
         <div key={i} style={menuItemStyle} onClick={item.handleClick}>
           <span style={iconStyle}><Icon name={item.icon}/></span>

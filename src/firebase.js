@@ -4,17 +4,20 @@ import 'firebase/database';
 import 'firebase/storage';
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
-    apiKey: "AIzaSyBl8oFPZTMqKGBbmiJ_UYv3aWl4ODvXaLM",
-    authDomain: "lets-trade-a1486.firebaseapp.com",
-    databaseURL: "https://lets-trade-a1486.firebaseio.com",
-    projectId: "lets-trade-a1486",
-    storageBucket: "lets-trade-a1486.appspot.com",
-    messagingSenderId: "784436598416",
-    appId: "1:784436598416:web:e3fdd8a0319bea7c5b2a15",
-    measurementId: "G-K1360B4FB0"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBarcEm15ekt9ZtaaSbTqvt2o_Iazwpra4",
+  authDomain: "kpop-trade.firebaseapp.com",
+  databaseURL: "https://kpop-trade.firebaseio.com",
+  projectId: "kpop-trade",
+  storageBucket: "kpop-trade.appspot.com",
+  messagingSenderId: "739240915797",
+  appId: "1:739240915797:web:2ce7e3960bbdf7f8dc35dc",
+  measurementId: "G-D68V9LGJ09"
+};
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
   export default firebase;
+
+
+  

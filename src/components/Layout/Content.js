@@ -17,9 +17,9 @@ class Content extends React.Component {
       case 'CHAT':
         return <ChatPanel currentUser={currentUser} currentChannel={chatChannel}/>
       case 'PROFILE':
-        return <div>coming soon!</div>
+        return <div> Profiles are coming soon! They will allow you to manage your posts, friends and wishlist</div>
       default: 
-        return 'coming soon';
+        return 'Welcome to Kpop trade early development, While many features are coming soon the core elements of posting and chatting work. Stay tuned for more, email concerns or comments to m23.cullen@gmail.com';
     } 
   }
 

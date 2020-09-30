@@ -50,7 +50,8 @@ class Trades extends React.Component {
             trade['id'] = snap.key;
             loadedTrades.push(trade);
             this.setState({
-                trades: loadedTrades
+                trades: loadedTrades,
+                tradesLoading: false
             })
         });
     };
@@ -97,7 +98,7 @@ class Trades extends React.Component {
     }
 
     render() {
-        const { recipient, user, trades } = this.state;
+        const { recipient, user, trades, tradesLoading } = this.state;
         const { itemsPerRow } = this.props;
         console.log(trades)
         return (
@@ -122,6 +123,7 @@ class Trades extends React.Component {
 
                 {/* TRADE CARDS */}
                 {/* ITEMS PER ROW MUST CHANGE FOR MOBILE */}
+                {tradesLoading ? 'loading Content' : null}
                 <Card.Group itemsPerRow={itemsPerRow}> 
                     {trades.length > 0 ? this.displayTrades(trades) : null}
                 </Card.Group>

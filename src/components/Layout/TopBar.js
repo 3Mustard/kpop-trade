@@ -21,7 +21,7 @@ const TopBar = ({ styles, logout, profile }) => {
   return (
     <div style={topBarStyle}>
       <span><Icon name='user' onClick={profile}/></span>
-      App
+      Kpop Trade
       <span><Icon name='log out' onClick={logout}/></span>
     </div>
   );

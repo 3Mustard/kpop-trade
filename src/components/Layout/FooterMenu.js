@@ -18,6 +18,7 @@ const FooterMenu = ({ menuItems, styles }) => {
       {menuItems.map((item, i) => {
         return (
           <div
+            onClick={item.handleClick} 
             key={i}
             style={{
               display: "flex",
@@ -26,7 +27,7 @@ const FooterMenu = ({ menuItems, styles }) => {
               flex: 1
             }}
           >
-            <span style={{ fontSize: 20 }}><Icon name={item.icon} onClick={item.handleClick}/></span>
+            <span style={{ fontSize: 20 }}><Icon name={item.icon}/></span>
             {styles.showFooterMenuText && item.text}
           </div>
         );
