@@ -51,6 +51,10 @@ class App extends React.Component {
     this.setState({ appComponent: request });
   }
 
+  handleTopBarChangeProfile = () => {
+    this.setState({ appComponent: 'PROFILE' });
+  }
+
   render() {
     const { windowWidth, appComponent, chatChannel } = this.state;
     const { currentUser } = this.props;
@@ -74,7 +78,7 @@ class App extends React.Component {
     ];
 
     if (styles.showSidebar) {
-      menuItems.push({ icon: `user`, text: "Profile" });
+      menuItems.push({ icon: `user`, text: "Profile", handleClick: () => this.setState({ appComponent: 'PROFILE'}) });
       menuItems.push({ icon: `log out`, text: "Log out", handleClick: () => this.handleSignout() });
     }
 
@@ -89,7 +93,7 @@ class App extends React.Component {
         {styles.showSidebar ? (
           <SideBar menuItems={menuItems} styles={styles} />
         ) : (
-          <TopBar styles={styles} logout={this.handleSignout}/>
+          <TopBar styles={styles} logout={this.handleSignout} profile={this.handleTopBarChangeProfile}/>
         )}
 
         <Content styles={styles} appComponent={appComponent} chatChannel={chatChannel} currentUser={currentUser} changeContent={this.handleChangeContent} changeChannel={this.handleChangeChannel}/>

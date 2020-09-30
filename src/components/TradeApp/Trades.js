@@ -53,19 +53,8 @@ class Trades extends React.Component {
                 trades: loadedTrades
             })
         });
-        // CHILD REMOVED
-        ref.on('child_removed', snap => {
-            const trades = this.state.trades.filter((trade) => {
-                trade.id !== snap.key;
-            });
-            this.setState({
-                trades
-            });
-        });
-        if (loadedTrades.length === 0) {
-            this.setState({ tradesLoading: false });
-        }
     };
+
     
     // when a user clicks a trade they want to respond to
     replyToTrade = (recipient) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from 'semantic-ui-react';
 
-const TopBar = ({ styles, logout }) => {
+const TopBar = ({ styles, logout, profile }) => {
   const topBarStyle = {
     position: "fixed",
     top: 0,
@@ -20,7 +20,7 @@ const TopBar = ({ styles, logout }) => {
 
   return (
     <div style={topBarStyle}>
-      <span><Icon name='user'/></span>
+      <span><Icon name='user' onClick={profile}/></span>
       App
       <span><Icon name='log out' onClick={logout}/></span>
     </div>

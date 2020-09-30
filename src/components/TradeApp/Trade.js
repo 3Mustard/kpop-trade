@@ -20,9 +20,9 @@ const Trade = ({ details, image, user, replyToTrade, currentUser, handleDelete, 
         {/* this should be a component to open a direct message between current user and the user who posted this. */}
         posted by: {user.id === currentUser.uid ? 'You' : user.name} 
       </a>
-      <a style={{float: 'right'}}>
+      {/* <a style={{float: 'right'}}>
         {user.id === currentUser.uid ? <DeleteTrade id={id}/> : null}
-      </a>
+      </a> */}
     </Card.Content>
   </Card>
 )

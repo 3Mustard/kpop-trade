@@ -16,6 +16,8 @@ class Content extends React.Component {
         return <ChatsIndex currentUser={currentUser} changeContent={changeContent} changeChannel={changeChannel}/>;
       case 'CHAT':
         return <ChatPanel currentUser={currentUser} currentChannel={chatChannel}/>
+      case 'PROFILE':
+        return <div>coming soon!</div>
       default: 
         return 'coming soon';
     } 

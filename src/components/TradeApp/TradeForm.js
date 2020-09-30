@@ -92,8 +92,7 @@ class TradeForm extends React.Component {
     // if there is an imageDownloadURL attach it to the trade object
     if (fileUrl !== null){
       trade['image'] = fileUrl;
-    }
-    console.log('trade made with createTrade()', trade)
+    } 
     this.addTrade(trade);
   }
 

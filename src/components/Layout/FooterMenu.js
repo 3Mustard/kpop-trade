@@ -26,7 +26,7 @@ const FooterMenu = ({ menuItems, styles }) => {
               flex: 1
             }}
           >
-            <span style={{ fontSize: 20 }}><Icon name={item.icon}/></span>
+            <span style={{ fontSize: 20 }}><Icon name={item.icon} onClick={item.handleClick}/></span>
             {styles.showFooterMenuText && item.text}
           </div>
         );
