@@ -34,12 +34,6 @@ class TradeForm extends React.Component {
     errors: []
   };
 
-  componentWillUnmount() {
-    if (this.state.uploadTask !== null) {
-      this.state.uploadTask.cancel();
-      this.setState({ uploadTask: null });
-    }
-  }
 
   // change value in state based on value of form field
   handleChange = event => {
@@ -47,19 +41,18 @@ class TradeForm extends React.Component {
   };
 
   handleSubmit = event => {
+    console.log('state at handle submit',this.state)
     // If there is an Image it gets uploaded and the upload function calls createTrade(withUrl) and addTrade(newTrade)
     if (this.state.file !== null) {
       if (this.isAuthorized(this.state.file.name)) { // check if the file is the correct file type
+        console.log('file authorized')
         const metadata = { contentType: mime.lookup(this.state.file.name) }; // attach meta data
         this.uploadFile(this.state.file, metadata); // sends file to firestore and adds trade to trades collection
       }
     //without an image a new trade is created and added to collection
     } else { 
-      const newTrade = this.createTrade(); // returns an object that resembles how objects in trades collection look
-      this.addTrade(newTrade);
+      this.createTrade(); // returns an object that resembles how objects in trades collection look
     }
-    // may need clean up function
-    this.props.changeContent('VIEW_TRADES');
   };
 
   // check if form is filled out
@@ -100,7 +93,8 @@ class TradeForm extends React.Component {
     if (fileUrl !== null){
       trade['image'] = fileUrl;
     }
-    return trade;
+    console.log('trade made with createTrade()', trade)
+    this.addTrade(trade);
   }
 
   // adds the selected file to state
@@ -111,51 +105,23 @@ class TradeForm extends React.Component {
     }
   };
 
-  // uploads file to storage and adds trade to trades collection
+  // uploads file to storage and and adds new trade
   uploadFile = (file, metadata) => {
+    const storageRef = this.state.storageRef;
     const filePath = `trades/images/${uuidv4()}.jpg`; // uuidv4 is a random number generator 
     
-    // When set state is called and uploadTask is assigned, the file transfer starts and triggers 'state_changed' listener.
-    this.setState({
-      uploadState: 'uploading', //disables send button and enables progressBar component
-      uploadTask: this.state.storageRef.child(filePath).put(file, metadata) // .put() uploads file to storage causing the code below to run.
-    },
-      () => {
-        this.state.uploadTask.on(
-          'state_changed', 
-          snap => {
-            const percentUploaded = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-            this.setState({ percentUploaded }); 
-        },
-          err => {
-            console.error(err);
-            this.setState({
-              errors: this.state.errors.concat(err),
-              uploadState: 'error',
-              uploadTask: null
-            });
-          },
-          () => {
-            this.state.uploadTask.snapshot.ref.getDownloadURL().then(downloadUrl => {
-              const newTrade = this.createTrade(downloadUrl); // returns an object that resembles how objects in trades collection look
-              this.addTrade(newTrade); // upload trade object to trade collection
-            })
-            .catch(err => {
-              console.error(err);
-              this.setState({
-                errors: this.state.errors.concat(err),
-                uploadState: 'error',
-                uploadTask: null
-              })
-            })
-          }
-        )
-      }
-    )
+    storageRef.child(filePath).put(file, metadata)
+      .then((snapshot) => {
+        snapshot.ref.getDownloadURL()
+          .then((downloadURL) => {
+            this.createTrade(downloadURL);
+      })
+    });
   };
 
   // Sends trade object to firestore collection
   addTrade = (newTrade) => {
+    console.log('inside add trade', newTrade)
     const { tradesRef } = this.state;
     this.setState({ loading: true });
     if (newTrade) {
@@ -172,6 +138,9 @@ class TradeForm extends React.Component {
             loading: false,
             errors: [] 
           });
+        })
+        .then(() => {
+          this.props.changeContent('VIEW_TRADES');
         })
         .catch(err => {
           console.error(err);
