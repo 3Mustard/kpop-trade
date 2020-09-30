@@ -31,9 +31,8 @@ class Trades extends React.Component {
     // get all trades from database except ones the current user has posted.
     addTradesListener = () => {
         let loadedTrades = [];
-        let loadedUsersTrades = [];
-
         const { ref } = this.state.tradesRef;
+        // CHILD ADDED
         ref.on('child_added', snap => {
             // activate this to differentiate trades belonging to logged in user
             // if (snap.val().user.id === this.state.user.uid) {
@@ -53,6 +52,15 @@ class Trades extends React.Component {
             this.setState({
                 trades: loadedTrades
             })
+        });
+        // CHILD REMOVED
+        ref.on('child_removed', snap => {
+            const trades = this.state.trades.filter((trade) => {
+                trade.id !== snap.key;
+            });
+            this.setState({
+                trades
+            });
         });
         if (loadedTrades.length === 0) {
             this.setState({ tradesLoading: false });
